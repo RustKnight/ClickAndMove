@@ -13,8 +13,11 @@ public:
 	Box() { randomize(Point{ rand() % 750, rand() % 550 }); }
 
 	void randomize(Point location);
+	void tag_attempt(Point location);
+	void follow_mouse(Point location);
 
 //Getters
+	bool get_status() const { return selected; }
 	int get_width() const { return width; }
 	int get_height() const { return height; }
 	Point get_loc() const { return loc; }
@@ -30,4 +33,7 @@ private:
 	Point loc;
 	olc::Pixel color;
 	bool selected;
+
+	int width_dif ;
+	int height_dif;
 };

@@ -2,6 +2,7 @@
 #include "olcPixelGameEngine.h"
 #include "Box.h"
 #include "Point.h"
+#include "Mouse.h"
 #include <ctime>
 
 int window_width = 800;
@@ -11,8 +12,8 @@ int window_height = 600;
 class Demo : public olc::PixelGameEngine
 {
 public:
-	Demo() :
-		m_box1{ Point {rand() % 750, rand() % 550 } }
+	Demo() 
+		
 	{
 		sAppName = "Demo";
 	}
@@ -35,22 +36,43 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 		
+		// refresh screen and update mouse
 		Clear(olc::BLACK);
+		ms.update_loc(Point{ GetMouseX(), GetMouseY() });
 
+		// check where click was and if any box was tagged
+		if (GetMouse(0).bPressed) {
 
+			for (int i = 0; i < number_boxes; i++)
+				m_aray_boxes[i].tag_attempt(ms.location);
+		}
+
+		// update tagged boxes after mouse
+		for (int i = 0; i < number_boxes; i++)
+			if (m_aray_boxes[i].get_status())
+				m_aray_boxes[i].follow_mouse(ms.location);
+
+		//randomize box position, color and size
 		if (GetMouse(2).bPressed)
 			for (int i = 0; i < number_boxes; i++)
 				m_aray_boxes[i].randomize(Point{ rand() % 750, rand() % 550 });
 
+
+		// change size of box array
 		if (GetKey(olc::SPACE).bPressed) {
 			std::cout << "Enter value: " << std::endl;
 			std::cin >> number_boxes;
+
 			delete[]m_aray_boxes;
 			m_aray_boxes = new Box[number_boxes];
-			mem = sizeof(m_aray_boxes);
-			std::cout << "\nMemory = " << mem;
 			std::cout << "\nResuming...";
 		}
+
+
+
+
+
+		//Draw
 
 		for (int i = 0; i < number_boxes; i++)
 		FillRect(
@@ -67,10 +89,9 @@ public:
 
 
 private:
-	Box m_box1;
 	int number_boxes = 3;
 	Box *m_aray_boxes = new Box[number_boxes];
-	long long mem;
+	Mouse ms;
 };
 
 
