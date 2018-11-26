@@ -17,6 +17,8 @@ public:
 	void follow_mouse(Point location);
 	void flip();
 	void deselect();
+	void fadeIn();
+	void fadeOut();
 
 //Getters
 	bool get_status() const { return selected; }

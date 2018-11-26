@@ -46,3 +46,15 @@ void Box::deselect()
 {
 	selected = false;
 }
+
+void Box::fadeIn()
+{
+	if (color.getAlpha() < 245)
+	color.getAlpha() += 5;
+}
+
+void Box::fadeOut()
+{
+	if (color.getAlpha() > 5)
+	color.getAlpha() -= 5;
+}

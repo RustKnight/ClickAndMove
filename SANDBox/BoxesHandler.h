@@ -14,7 +14,7 @@ public:
 	Box& CarriedBox();
 	bool hasBox () { return carrying; }
 	void throwBoxes();
-	void adjustBoxes();
+	void changeBoxQuantity();
 	void drawBoxes();
 
 private:

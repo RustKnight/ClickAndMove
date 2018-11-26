@@ -33,7 +33,7 @@ void BoxesHandler::throwBoxes()
 		m_aray_boxes[i].randomize(Point{ rand() % 750, rand() % 550 });
 }
 
-void BoxesHandler::adjustBoxes()
+void BoxesHandler::changeBoxQuantity()
 {
 	std::cout << "Enter value: " << std::endl;
 	std::cin >> number_boxes;

@@ -37,6 +37,8 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override
 	{
 		
+		SetPixelMode(olc::Pixel::ALPHA);
+
 		// refresh screen and update mouse
 		Clear(olc::BLACK);
 		ms.update_loc(Point{ GetMouseX(), GetMouseY() });
@@ -61,6 +63,12 @@ public:
 
 			if (GetMouse(1).bPressed)
 				box_hand.CarriedBox().flip();
+
+
+			if (GetKey(olc::Q).bHeld)
+				box_hand.CarriedBox().fadeOut();
+			if (GetKey(olc::W).bHeld)
+				box_hand.CarriedBox().fadeIn();
 		}
 	
 
@@ -71,7 +79,7 @@ public:
 
 		// change size of box array
 		if (GetKey(olc::SPACE).bPressed)
-			box_hand.adjustBoxes();
+			box_hand.changeBoxQuantity();
 		
 
 
