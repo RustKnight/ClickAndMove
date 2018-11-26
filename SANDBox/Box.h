@@ -15,6 +15,8 @@ public:
 	void randomize(Point location);
 	void tag_attempt(Point location);
 	void follow_mouse(Point location);
+	void swap_sizes();
+	void deselect();
 
 //Getters
 	bool get_status() const { return selected; }

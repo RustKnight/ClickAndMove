@@ -34,3 +34,15 @@ void Box::follow_mouse(Point location)
 	loc.y = location.y + height_dif;
 
 }
+
+void Box::swap_sizes()
+{
+	int z = width;
+	width = height;
+	height = z;
+}
+
+void Box::deselect()
+{
+	selected = false;
+}

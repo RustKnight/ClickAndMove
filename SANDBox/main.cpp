@@ -40,17 +40,29 @@ public:
 		Clear(olc::BLACK);
 		ms.update_loc(Point{ GetMouseX(), GetMouseY() });
 
-		// check where click was and if any box was tagged
+		// check where click was and if any box was tagged - also, check if mouse is carrying anything, if so, drop all, else check for boxes
 		if (GetMouse(0).bPressed) {
+			if (ms.carrying){
+				for (int i = 0; i < number_boxes; i++) 
+					m_aray_boxes[i].deselect();
 
+					ms.carrying = false;
+				}
+
+			else
 			for (int i = 0; i < number_boxes; i++)
 				m_aray_boxes[i].tag_attempt(ms.location);
 		}
 
-		// update tagged boxes after mouse
+		// update tagged boxes after mouse -- also controls swap width/height
 		for (int i = 0; i < number_boxes; i++)
-			if (m_aray_boxes[i].get_status())
+			if (m_aray_boxes[i].get_status()) {
+				ms.carrying = true;
 				m_aray_boxes[i].follow_mouse(ms.location);
+
+				if (GetMouse(1).bPressed)
+					m_aray_boxes[i].swap_sizes();
+			}
 
 		//randomize box position, color and size
 		if (GetMouse(2).bPressed)
@@ -89,7 +101,7 @@ public:
 
 
 private:
-	int number_boxes = 3;
+	int number_boxes = 20;
 	Box *m_aray_boxes = new Box[number_boxes];
 	Mouse ms;
 };
