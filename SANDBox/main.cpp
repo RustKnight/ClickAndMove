@@ -37,7 +37,12 @@ public:
 		
 		Clear(olc::BLACK);
 
-		
+		FillRect(
+			m_box1.get_loc().x,
+			m_box1.get_loc().y,
+			m_box1.get_width(),
+			m_box1.get_height(),
+			m_box1.get_col());
 
 
 

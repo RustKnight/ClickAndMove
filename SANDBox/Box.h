@@ -13,6 +13,8 @@ public:
 //Getters
 	int get_width() const { return width; }
 	int get_height() const { return height; }
+	Point get_loc() const { return loc; }
+	olc::Pixel get_col() const { return color; }
 
 //Methods
 private:
