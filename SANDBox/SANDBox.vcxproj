@@ -151,6 +151,7 @@
     <ClInclude Include="Box.h" />
     <ClInclude Include="BoxesHandler.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="olcPixelGameEngine.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
