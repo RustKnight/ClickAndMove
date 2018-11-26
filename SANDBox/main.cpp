@@ -41,6 +41,11 @@ public:
 		if (GetMouse(2).bPressed)
 			m_box1.randomize(Point{ rand() % 750, rand() % 550 });
 
+		if (GetKey(olc::SPACE).bPressed) {
+			std::cout << "Enter value: " << std::endl;
+			std::cin >> number_boxes;
+			std::cout << "\nResuming...";
+		}
 
 		FillRect(
 			m_box1.get_loc().x,
@@ -57,6 +62,7 @@ public:
 
 private:
 	Box m_box1;
+	int number_boxes;
 };
 
 
