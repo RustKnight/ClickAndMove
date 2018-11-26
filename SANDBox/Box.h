@@ -12,10 +12,10 @@ public:
 
 	Box() { randomize(Point{ rand() % 750, rand() % 550 }); }
 
+	bool tag_attempt(Point location);
 	void randomize(Point location);
-	void tag_attempt(Point location);
 	void follow_mouse(Point location);
-	void swap_sizes();
+	void flip();
 	void deselect();
 
 //Getters

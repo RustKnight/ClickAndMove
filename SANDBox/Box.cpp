@@ -11,7 +11,7 @@ void Box::randomize(Point location)
 
 }
 
-void Box::tag_attempt(Point location)
+bool Box::tag_attempt(Point location)
 {
 
 	if (location.x > loc.x && location.x < loc.x + width)
@@ -24,7 +24,7 @@ void Box::tag_attempt(Point location)
 				height_dif = loc.y - location.y;
 			}
 	
-
+			return selected;
 }
 
 void Box::follow_mouse(Point location)
@@ -35,7 +35,7 @@ void Box::follow_mouse(Point location)
 
 }
 
-void Box::swap_sizes()
+void Box::flip()
 {
 	int z = width;
 	width = height;

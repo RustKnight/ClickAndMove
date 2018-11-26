@@ -3,6 +3,7 @@
 #include "Box.h"
 #include "Point.h"
 #include "Mouse.h"
+#include "BoxesHandler.h"
 #include <ctime>
 
 int window_width = 800;
@@ -42,58 +43,39 @@ public:
 
 		// check where click was and if any box was tagged - also, check if mouse is carrying anything, if so, drop all, else check for boxes
 		if (GetMouse(0).bPressed) {
-			if (ms.carrying){
-				for (int i = 0; i < number_boxes; i++) 
-					m_aray_boxes[i].deselect();
+			if (ms.carrying) {
+				box_hand.dropBox();
+				ms.carrying = false;
+			}
 
-					ms.carrying = false;
-				}
-
-			else
-			for (int i = 0; i < number_boxes; i++)
-				m_aray_boxes[i].tag_attempt(ms.location);
+			else 
+				box_hand.checkForBox(ms.location);			
 		}
 
-		// update tagged boxes after mouse -- also controls swap width/height
-		for (int i = 0; i < number_boxes; i++)
-			if (m_aray_boxes[i].get_status()) {
-				ms.carrying = true;
-				m_aray_boxes[i].follow_mouse(ms.location);
 
-				if (GetMouse(1).bPressed)
-					m_aray_boxes[i].swap_sizes();
-			}
+
+		// update tagged boxes after mouse location -- also controls swap width/height 
+		if (box_hand.hasBox()) {
+			box_hand.CarriedBox().follow_mouse(ms.location);
+			ms.carrying = true;
+
+			if (GetMouse(1).bPressed)
+				box_hand.CarriedBox().flip();
+		}
+	
 
 		//randomize box position, color and size
 		if (GetMouse(2).bPressed)
-			for (int i = 0; i < number_boxes; i++)
-				m_aray_boxes[i].randomize(Point{ rand() % 750, rand() % 550 });
+			box_hand.throwBoxes();
 
 
 		// change size of box array
-		if (GetKey(olc::SPACE).bPressed) {
-			std::cout << "Enter value: " << std::endl;
-			std::cin >> number_boxes;
-
-			delete[]m_aray_boxes;
-			m_aray_boxes = new Box[number_boxes];
-			std::cout << "\nResuming...";
-		}
+		if (GetKey(olc::SPACE).bPressed)
+			box_hand.adjustBoxes();
+		
 
 
-
-
-
-		//Draw
-
-		for (int i = 0; i < number_boxes; i++)
-		FillRect(
-			m_aray_boxes[i].get_loc().x,
-			m_aray_boxes[i].get_loc().y,
-			m_aray_boxes[i].get_width(),
-			m_aray_boxes[i].get_height(),
-			m_aray_boxes[i].get_col());
-
+		box_hand.drawBoxes();
 
 
 		return true;
@@ -101,9 +83,9 @@ public:
 
 
 private:
-	int number_boxes = 20;
-	Box *m_aray_boxes = new Box[number_boxes];
 	Mouse ms;
+	BoxesHandler box_hand{ this };
+
 };
 
 
