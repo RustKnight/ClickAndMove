@@ -39,20 +39,26 @@ public:
 
 
 		if (GetMouse(2).bPressed)
-			m_box1.randomize(Point{ rand() % 750, rand() % 550 });
+			for (int i = 0; i < number_boxes; i++)
+				m_aray_boxes[i].randomize(Point{ rand() % 750, rand() % 550 });
 
 		if (GetKey(olc::SPACE).bPressed) {
 			std::cout << "Enter value: " << std::endl;
 			std::cin >> number_boxes;
+			delete[]m_aray_boxes;
+			m_aray_boxes = new Box[number_boxes];
+			mem = sizeof(m_aray_boxes);
+			std::cout << "\nMemory = " << mem;
 			std::cout << "\nResuming...";
 		}
 
+		for (int i = 0; i < number_boxes; i++)
 		FillRect(
-			m_box1.get_loc().x,
-			m_box1.get_loc().y,
-			m_box1.get_width(),
-			m_box1.get_height(),
-			m_box1.get_col());
+			m_aray_boxes[i].get_loc().x,
+			m_aray_boxes[i].get_loc().y,
+			m_aray_boxes[i].get_width(),
+			m_aray_boxes[i].get_height(),
+			m_aray_boxes[i].get_col());
 
 
 
@@ -62,7 +68,9 @@ public:
 
 private:
 	Box m_box1;
-	int number_boxes;
+	int number_boxes = 3;
+	Box *m_aray_boxes = new Box[number_boxes];
+	long long mem;
 };
 
 

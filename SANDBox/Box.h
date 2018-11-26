@@ -10,6 +10,8 @@ public:
 		width{ 20 + rand() % 30 }, height{ 20 + rand() % 30 },  loc {loc_in}, color{ olc::Pixel(rand() % 255, rand() % 255, rand() % 255) }, selected {false}
 	{}
 
+	Box() { randomize(Point{ rand() % 750, rand() % 550 }); }
+
 	void randomize(Point location);
 
 //Getters
