@@ -12,7 +12,7 @@ class Demo : public olc::PixelGameEngine
 {
 public:
 	Demo() :
-		m_box1 {Point {rand() % 750, rand() % 550 }, olc::Pixel(rand() % 255, rand() % 255, rand() % 255) }
+		m_box1{ Point {rand() % 750, rand() % 550 } }
 	{
 		sAppName = "Demo";
 	}
@@ -36,6 +36,11 @@ public:
 	{
 		
 		Clear(olc::BLACK);
+
+
+		if (GetMouse(2).bPressed)
+			m_box1.randomize(Point{ rand() % 750, rand() % 550 });
+
 
 		FillRect(
 			m_box1.get_loc().x,

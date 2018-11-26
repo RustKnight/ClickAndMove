@@ -6,9 +6,11 @@
 
 class Box {
 public:
-	Box(Point loc_in, olc::Pixel col) :
-		width{ 20 + rand() % 30 }, height{ 20 + rand() % 30 },  loc {loc_in}, color{ col }, selected {false}
+	Box(Point loc_in) :
+		width{ 20 + rand() % 30 }, height{ 20 + rand() % 30 },  loc {loc_in}, color{ olc::Pixel(rand() % 255, rand() % 255, rand() % 255) }, selected {false}
 	{}
+
+	void randomize(Point location);
 
 //Getters
 	int get_width() const { return width; }
