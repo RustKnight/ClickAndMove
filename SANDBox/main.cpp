@@ -27,9 +27,13 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{		
-		Clear(olc::GREY);
+		Clear(olc::BLACK);
 
-		a.Draw_Circle_Visible(400,300, 50);
+		if (GetKey(olc::SPACE).bPressed)
+			go = !go;
+
+		if (go)
+		a.Draw_Circle_Visible(400,300, 100);
 
 
 		return true;
@@ -38,6 +42,7 @@ public:
 
 private:
 	Circle a { this };
+	bool go = false;
 };
 
 

@@ -1,5 +1,5 @@
 #include "Circle.h"
-
+#include <assert.h>
 
 
 void Circle::Draw_CircleFilled(int in_x_cen, int in_y_cen, int in_radius)
@@ -63,7 +63,7 @@ void Circle::Sketch_Circle()
 			// if we entered, but no longer trigger  the above if cond. - it means we are under the half of the circle
 			else
 				if (entered) {
-					vCircle_slices.push_back({ Point{ x, y } }); // end point
+					vCircle_slices.push_back({ Point{ x, y -1 } }); // end point
 					entered = false;
 				}
 
@@ -96,12 +96,21 @@ void Circle::Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius)
 
 	int last_quarter_prog;
 
-	for (int i = 0; i < progress; ++i) {
+	for (int i = 0; i < progress; i+= 2) {
 
-			Draw_Slice(i, olc::Pixel { uint8_t (rand() % 255), uint8_t (rand() % 255), uint8_t (rand() % 255) } );
+		last_quarter_prog  = progress - 15;
+
+		if (i < last_quarter_prog)
+			Draw_Slice(i, olc::RED);
+
+		else
+			Draw_Slice(i, olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) });
 	}
 
 	progress++;
+
+	//if (progress > vCircle_slices.size() + 20)
+	//	progress = 0;
 }
 
 
@@ -109,6 +118,8 @@ void Circle::Draw_Slice(int number, olc::Pixel col)
 {
 	if (number < vCircle_slices.size() - 1) {
 
+		assert (vCircle_slices[number].x == vCircle_slices[number + 1].x);
+	
 		pge->DrawLine(vCircle_slices[number].x, vCircle_slices[number].y, vCircle_slices[number + 1].x, vCircle_slices[number + 1].y, col);
 
 	}
