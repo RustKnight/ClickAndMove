@@ -209,6 +209,19 @@ void Circle::Reset_Progress()
 	Set_Segments(segments);
 }
 
+void Circle::Highlight_Slice(int x, int y)
+{
+	for (int i = 0; i < vCircle_slices.size(); i+= 2) {
+
+		if (vCircle_slices[i].x == x && y >= y_cen - radius && y <= y_cen + radius) {
+			int line_lenght = vCircle_slices[i + 1].y - vCircle_slices[i].y;
+			pge->DrawRect(vCircle_slices[i].x - 1, vCircle_slices[i].y - 1, 1, line_lenght + 1, olc::GREEN);
+		}
+	}
+
+
+}
+
 
 void Circle::Draw_Slice(int number, olc::Pixel col)
 {

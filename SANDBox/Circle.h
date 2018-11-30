@@ -19,7 +19,7 @@ public:
 	void Pause_Progress();
 	void Reset_Progress();
 
-	//int Get_Segment (int x, int y)
+	void Highlight_Slice(int x, int y);
 
 private:
 	void Sketch_Circle();

@@ -36,7 +36,11 @@ public:
 
 
 	bool OnUserUpdate(float fElapsedTime) override
-	{		
+	{	
+
+		mouse_x = GetMouseX();
+		mouse_y = GetMouseY();
+
 		Clear(olc::BLACK);
 
 		if (GetKey(olc::SPACE).bPressed) {
@@ -60,6 +64,8 @@ public:
 		c.Draw_Circle_Visible();
 		d.Draw_Circle_Visible();
 		 
+		b.Highlight_Slice(mouse_x, mouse_y);
+
 		return true;
 	}
 
@@ -69,6 +75,9 @@ private:
 	Circle b { this };
 	Circle c { this };
 	Circle d { this };
+
+	int mouse_x;
+	int mouse_y;
 };
 
 
