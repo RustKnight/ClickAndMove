@@ -94,23 +94,41 @@ void Circle::Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius)
 	if (!ready)
 		Sketch_Circle();
 
-	int last_quarter_prog;
+	int III_slice;
+	int II_slice;
+	int I_slice;
 
 	for (int i = 0; i < progress; i+= 2) {
 
-		last_quarter_prog  = progress - 15;
+		III_slice = progress - 15;
+		II_slice = progress - 30;
+		I_slice = progress - 45;
 
-		if (i < last_quarter_prog)
+
+		if (i <= I_slice)
 			Draw_Slice(i, olc::RED);
 
-		else
-			Draw_Slice(i, olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) });
+		else if ( i <= II_slice)
+			Draw_Slice(i, olc::VERY_DARK_BLUE);
+
+		else if (i <= III_slice)
+			Draw_Slice(i, olc::DARK_BLUE);
+
+		else if (i >= III_slice)
+			Draw_Slice(i, olc::BLUE);
 	}
 
+	//olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) }
+	if (green)
 	progress++;
 
 	//if (progress > vCircle_slices.size() + 20)
 	//	progress = 0;
+}
+
+void Circle::Pause_Progress()
+{
+	green = !green;
 }
 
 

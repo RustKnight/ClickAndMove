@@ -14,7 +14,7 @@ public:
 	void Draw_CircleFilled(int in_x_cen, int in_y_cen, int in_radius);
 	void Draw_Circle(int in_x_cen, int in_y_cen, int in_radius);
 	void Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius);
-
+	void Pause_Progress();
 
 private:
 	void Sketch_Circle();
@@ -27,6 +27,7 @@ private:
 	bool entered = false;
 	bool starting_point = false;
 	bool ready = false;
+	bool green = false;
 	std::vector <Point> vCircle_slices;
 	int progress = 0;
 

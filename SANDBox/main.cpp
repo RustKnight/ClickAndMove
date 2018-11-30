@@ -30,9 +30,9 @@ public:
 		Clear(olc::BLACK);
 
 		if (GetKey(olc::SPACE).bPressed)
-			go = !go;
+			a.Pause_Progress();
 
-		if (go)
+		
 		a.Draw_Circle_Visible(400,300, 100);
 
 
@@ -42,7 +42,6 @@ public:
 
 private:
 	Circle a { this };
-	bool go = false;
 };
 
 
