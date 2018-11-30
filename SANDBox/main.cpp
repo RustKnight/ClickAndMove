@@ -19,7 +19,7 @@ public:
 	{
 		
 		a.Prepare_Circle(400, 300, 50);
-		a.Set_Segments(10);
+		a.Set_Segments(5);
 
 		return true;
 	}
@@ -56,7 +56,7 @@ private:
 
 int main()
 {
-	srand(time(NULL));
+	
 
 	Demo demo;
 	if (demo.Construct(800, 600, 1, 1))

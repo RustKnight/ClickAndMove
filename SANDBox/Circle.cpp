@@ -2,6 +2,7 @@
 #include <assert.h>
 
 
+
 void Circle::Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius)
 {
 	x_cen = in_x_cen;
@@ -18,7 +19,7 @@ void Circle::Draw_CircleFilled()
 	assert(ready);
 	
 
-	for (int i = 0; i < vCircle_slices.size() - 1; ++i) {
+	for (int i = 0; i <= vCircle_slices.size() -1 ; i+=2) {
 
 		Draw_Slice(i, olc::RED);
 	}		
@@ -86,46 +87,23 @@ void Circle::Sketch_Circle()
 void Circle::Draw_Circle_Visible()
 {
 
+
 	assert(ready);
 
-	//int III_slice;
-	//int II_slice;
-	//int I_slice;
-	//
-	//for (int i = 0; i < progress; i+= 2) {
 
+	// it seems that CircleSegment ending point is irelevant - limit of loop can be set by progress. Thou for code clarity this should maybe 
+	// be implemented another way (this meaning the seqvential draw "animation"
 		for (CircleSegment cs : vCir_seg) {
 
-			for (int i = cs.start_point; i <= cs.end_point;  i += 2)
+			for (int i = cs.start_point; i < progress;  i += 2)
 				Draw_Slice(i, cs.color);
 		}
 
-		//draw last missing slice
-		Draw_Slice(vCircle_slices.size()-2, vCir_seg[vCir_seg.size()-1].color);
+	// circle might be actually missing a last slice
 
-		//III_slice	= progress - 15;
-		//II_slice	= progress - 30;
-		//I_slice		= progress - 45;
-		//
-		//
-		//if (i <= I_slice)
-		//	Draw_Slice(i, olc::RED);
-		//
-		//else if ( i <= II_slice)
-		//	Draw_Slice(i, olc::Pixel{ 191, 0, 0 });
-		//
-		//else if (i <= III_slice)
-		//	Draw_Slice(i, olc::Pixel{ 127, 0, 0 });
-		//
-		//else if (i >= III_slice)
-		//	Draw_Slice(i, olc::Pixel{ 63, 0, 0 });
+		
 
-
-		//RED(255, 0, 0), DARK_RED(128, 0, 0), VERY_DARK_RED(64, 0, 0),
-//	}
-
-	//olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) }
-	if (green)
+	if (go && progress < vCircle_slices.size())
 	progress++;
 
 
@@ -135,6 +113,8 @@ void Circle::Set_Segments(int seg)
 {
 	// circle must have values, before setting segments
 	assert(ready);
+
+	srand(time(NULL));
 
 	segments = seg;
 
@@ -159,7 +139,7 @@ void Circle::Set_Segments(int seg)
 
 void Circle::Pause_Progress()
 {
-	green = !green;
+	go = !go;
 }
 
 void Circle::Reset_Progress()
@@ -170,11 +150,11 @@ void Circle::Reset_Progress()
 
 void Circle::Draw_Slice(int number, olc::Pixel col)
 {
-	if (number < vCircle_slices.size() - 1) {
+	
 
 		assert (vCircle_slices[number].x == vCircle_slices[number + 1].x);
 	
 		pge->DrawLine(vCircle_slices[number].x, vCircle_slices[number].y, vCircle_slices[number + 1].x, vCircle_slices[number + 1].y, col);
 
-	}
+	
 }

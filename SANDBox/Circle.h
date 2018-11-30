@@ -30,7 +30,7 @@ private:
 	bool entered = false;
 	bool starting_point = false;
 	bool ready = false;
-	bool green = false;
+	bool go = false;
 	std::vector <Point> vCircle_slices;
 	std::vector <CircleSegment> vCir_seg;
 	int progress = 0;
