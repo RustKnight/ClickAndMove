@@ -88,32 +88,41 @@ void Circle::Draw_Circle_Visible()
 
 	assert(ready);
 
-	int III_slice;
-	int II_slice;
-	int I_slice;
+	//int III_slice;
+	//int II_slice;
+	//int I_slice;
+	//
+	//for (int i = 0; i < progress; i+= 2) {
 
-	for (int i = 0; i < progress; i+= 2) {
+		for (CircleSegment cs : vCir_seg) {
 
-		III_slice	= progress - 15;
-		II_slice	= progress - 30;
-		I_slice		= progress - 45;
+			for (int i = cs.start_point; i <= cs.end_point;  i += 2)
+				Draw_Slice(i, cs.color);
+		}
 
+		//draw last missing slice
+		Draw_Slice(vCircle_slices.size()-2, vCir_seg[vCir_seg.size()-1].color);
 
-		if (i <= I_slice)
-			Draw_Slice(i, olc::RED);
-
-		else if ( i <= II_slice)
-			Draw_Slice(i, olc::Pixel{ 191, 0, 0 });
-
-		else if (i <= III_slice)
-			Draw_Slice(i, olc::Pixel{ 127, 0, 0 });
-
-		else if (i >= III_slice)
-			Draw_Slice(i, olc::Pixel{ 63, 0, 0 });
+		//III_slice	= progress - 15;
+		//II_slice	= progress - 30;
+		//I_slice		= progress - 45;
+		//
+		//
+		//if (i <= I_slice)
+		//	Draw_Slice(i, olc::RED);
+		//
+		//else if ( i <= II_slice)
+		//	Draw_Slice(i, olc::Pixel{ 191, 0, 0 });
+		//
+		//else if (i <= III_slice)
+		//	Draw_Slice(i, olc::Pixel{ 127, 0, 0 });
+		//
+		//else if (i >= III_slice)
+		//	Draw_Slice(i, olc::Pixel{ 63, 0, 0 });
 
 
 		//RED(255, 0, 0), DARK_RED(128, 0, 0), VERY_DARK_RED(64, 0, 0),
-	}
+//	}
 
 	//olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) }
 	if (green)
@@ -130,14 +139,17 @@ void Circle::Set_Segments(int seg)
 	segments = seg;
 
 	int sz;
-	sz = vCircle_slices.size() / 2;  // what if it doesn't divide by 2 ? Same for below oper.
+	sz = vCircle_slices.size();  // what if it doesn't divide by 2 ? Same for below oper.
 	sz /= segments;  // circ_slices size is actually divided by 2 ---- value here is the width of a segment
+	if (sz % 2 == 1)
+		sz += 1;
 
 	int start = 0;
 	int end = 0;
 
 	for (int i = 0; i < segments; ++i) {
 		
+	
 		start = end;
 		end += sz;
 

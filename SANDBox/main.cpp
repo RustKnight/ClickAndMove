@@ -1,6 +1,7 @@
 #define OLC_PGE_APPLICATION
 #include "olcPixelGameEngine.h"
 #include "Circle.h"
+#include <ctime>
 
 
 
@@ -18,7 +19,7 @@ public:
 	{
 		
 		a.Prepare_Circle(400, 300, 50);
-
+		a.Set_Segments(10);
 
 		return true;
 	}
@@ -37,6 +38,7 @@ public:
 		
 		
 		a.Draw_Circle_Visible ();
+		
 
 
 		return true;
@@ -54,7 +56,7 @@ private:
 
 int main()
 {
-
+	srand(time(NULL));
 
 	Demo demo;
 	if (demo.Construct(800, 600, 1, 1))
