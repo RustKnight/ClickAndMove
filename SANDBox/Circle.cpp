@@ -2,15 +2,20 @@
 #include <assert.h>
 
 
-void Circle::Draw_CircleFilled(int in_x_cen, int in_y_cen, int in_radius)
+void Circle::Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius)
 {
 	x_cen = in_x_cen;
 	y_cen = in_y_cen;
 	radius = in_radius;
 
-	if (!ready)
 	Sketch_Circle();
 
+	ready = true;
+}
+
+void Circle::Draw_CircleFilled()
+{
+	assert(ready);
 	
 
 	for (int i = 0; i < vCircle_slices.size() - 1; ++i) {
@@ -19,14 +24,9 @@ void Circle::Draw_CircleFilled(int in_x_cen, int in_y_cen, int in_radius)
 	}		
 }
 
-void Circle::Draw_Circle(int in_x_cen, int in_y_cen, int in_radius)
+void Circle::Draw_Circle()
 {
-	x_cen = in_x_cen;
-	y_cen = in_y_cen;
-	radius = in_radius;
-
-	if (!ready)
-		Sketch_Circle();
+	assert(ready);
 
 	int adjuster = 1;
 
@@ -80,19 +80,13 @@ void Circle::Sketch_Circle()
 
 	}
 
-	ready = true;
 }
 
 
-void Circle::Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius)
+void Circle::Draw_Circle_Visible()
 {
 
-	x_cen = in_x_cen;
-	y_cen = in_y_cen;
-	radius = in_radius;
-
-	if (!ready)
-		Sketch_Circle();
+	assert(ready);
 
 	int III_slice;
 	int II_slice;
@@ -100,35 +94,65 @@ void Circle::Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius)
 
 	for (int i = 0; i < progress; i+= 2) {
 
-		III_slice = progress - 15;
-		II_slice = progress - 30;
-		I_slice = progress - 45;
+		III_slice	= progress - 15;
+		II_slice	= progress - 30;
+		I_slice		= progress - 45;
 
 
 		if (i <= I_slice)
 			Draw_Slice(i, olc::RED);
 
 		else if ( i <= II_slice)
-			Draw_Slice(i, olc::VERY_DARK_BLUE);
+			Draw_Slice(i, olc::Pixel{ 191, 0, 0 });
 
 		else if (i <= III_slice)
-			Draw_Slice(i, olc::DARK_BLUE);
+			Draw_Slice(i, olc::Pixel{ 127, 0, 0 });
 
 		else if (i >= III_slice)
-			Draw_Slice(i, olc::BLUE);
+			Draw_Slice(i, olc::Pixel{ 63, 0, 0 });
+
+
+		//RED(255, 0, 0), DARK_RED(128, 0, 0), VERY_DARK_RED(64, 0, 0),
 	}
 
 	//olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) }
 	if (green)
 	progress++;
 
-	//if (progress > vCircle_slices.size() + 20)
-	//	progress = 0;
+
+}
+
+void Circle::Set_Segments(int seg)
+{
+	// circle must have values, before setting segments
+	assert(ready);
+
+	segments = seg;
+
+	int sz;
+	sz = vCircle_slices.size() / 2;  // what if it doesn't divide by 2 ? Same for below oper.
+	sz /= segments;  // circ_slices size is actually divided by 2 ---- value here is the width of a segment
+
+	int start = 0;
+	int end = 0;
+
+	for (int i = 0; i < segments; ++i) {
+		
+		start = end;
+		end += sz;
+
+		vCir_seg.push_back(CircleSegment{ start, end, olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) } });
+	}
 }
 
 void Circle::Pause_Progress()
 {
 	green = !green;
+}
+
+void Circle::Reset_Progress()
+{
+	progress = 0;
 }
 
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "olcPixelGameEngine.h"
 #include "Point.h"
+#include "CircleSegment.h"
 #include <vector>
 
 class Circle {
@@ -10,11 +11,13 @@ public:
 		pge {ref}
 	{}
 
-
-	void Draw_CircleFilled(int in_x_cen, int in_y_cen, int in_radius);
-	void Draw_Circle(int in_x_cen, int in_y_cen, int in_radius);
-	void Draw_Circle_Visible(int in_x_cen, int in_y_cen, int in_radius);
+	void Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius);
+	void Draw_CircleFilled();
+	void Draw_Circle();
+	void Draw_Circle_Visible();
+	void Set_Segments(int seg);
 	void Pause_Progress();
+	void Reset_Progress();
 
 private:
 	void Sketch_Circle();
@@ -29,9 +32,11 @@ private:
 	bool ready = false;
 	bool green = false;
 	std::vector <Point> vCircle_slices;
+	std::vector <CircleSegment> vCir_seg;
 	int progress = 0;
 
-	int x_cen;
-	int y_cen;
-	int radius;
+	int x_cen = 010;
+	int y_cen = 010;
+	int radius = 0;
+	int segments = 0;
 };

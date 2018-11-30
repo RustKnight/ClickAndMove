@@ -17,7 +17,7 @@ public:
 	bool OnUserCreate() override
 	{
 		
-
+		a.Prepare_Circle(400, 300, 50);
 
 
 		return true;
@@ -32,8 +32,11 @@ public:
 		if (GetKey(olc::SPACE).bPressed)
 			a.Pause_Progress();
 
+		if (GetKey(olc::R).bPressed)
+			a.Reset_Progress();
 		
-		a.Draw_Circle_Visible(400,300, 100);
+		
+		a.Draw_Circle_Visible ();
 
 
 		return true;
