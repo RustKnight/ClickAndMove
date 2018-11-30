@@ -19,9 +19,12 @@ public:
 	void Pause_Progress();
 	void Reset_Progress();
 
+	//int Get_Segment (int x, int y)
+
 private:
 	void Sketch_Circle();
 	void Draw_Slice(int number, olc::Pixel);
+	float Rnd_Color(char c, float r, float g, float b, bool direction);
 	// might need a refreh/clear method
 
 private:
@@ -39,4 +42,8 @@ private:
 	int y_cen = 010;
 	int radius = 0;
 	int segments = 0;
+
+	//debug
+	
+	std::vector<col_r> color_read;
 };

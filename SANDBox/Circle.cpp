@@ -104,7 +104,7 @@ void Circle::Draw_Circle_Visible()
 		
 
 	if (go && progress < vCircle_slices.size())
-	progress++;
+	progress += 2;
 
 
 }
@@ -114,7 +114,7 @@ void Circle::Set_Segments(int seg)
 	// circle must have values, before setting segments
 	assert(ready);
 
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	segments = seg;
 
@@ -127,15 +127,76 @@ void Circle::Set_Segments(int seg)
 	int start = 0;
 	int end = 0;
 
+	float red	=	rand() % 255;
+	float green =	rand() % 255;
+	float blue	 =	rand() % 255;
+
+	bool red_dir = rand() % 2;
+	bool green_dir = rand() % 2;
+	bool blue_dir = rand() % 2;
+
 	for (int i = 0; i < segments; ++i) {
 		
+		color_read.push_back(col_r{ red, 'r' });
+		color_read.push_back(col_r{ green, 'g' });
+		color_read.push_back(col_r{ blue, 'b' });
 	
-		start = end;
-		end += sz;
+		start	= end;
+		end		+= sz;
 
-		vCir_seg.push_back(CircleSegment{ start, end, olc::Pixel{ uint8_t(rand() % 255), uint8_t(rand() % 255), uint8_t(rand() % 255) } });
+		red		+= Rnd_Color	('r', red, green, blue, red_dir);
+		green	+= Rnd_Color	('g', red, green, blue, green_dir);
+		blue	+= Rnd_Color	('b', red, green, blue, blue_dir);
+
+		vCir_seg.push_back(CircleSegment{ start, end, olc::Pixel{ uint8_t( red ), uint8_t( green ), uint8_t( blue ) } });
+
 	}
 }
+
+float Circle::Rnd_Color(char c, float rd, float gr, float bl, bool direction)
+{
+
+	
+	float mod;
+
+
+	switch (c) {
+
+	case 'r':	
+		if (direction)
+			mod = (255 - rd) / segments;
+		else
+			mod = -(rd / segments);
+
+		return mod;
+		break;
+	
+
+	case 'g':
+		if (direction)
+			mod = (255 - gr) / segments;
+		else
+			mod = -(gr / segments);
+
+		return mod;
+		break;
+
+
+	case 'b':
+		if (direction)
+			mod = (255 - bl) / segments;
+		else
+			mod = -(bl / segments);
+
+		return mod;
+		break;
+
+	}
+
+
+}
+
+
 
 void Circle::Pause_Progress()
 {
@@ -145,6 +206,7 @@ void Circle::Pause_Progress()
 void Circle::Reset_Progress()
 {
 	progress = 0;
+	Set_Segments(segments);
 }
 
 
@@ -158,3 +220,4 @@ void Circle::Draw_Slice(int number, olc::Pixel col)
 
 	
 }
+
