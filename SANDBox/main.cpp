@@ -38,16 +38,15 @@ public:
 
 		Clear(olc::BLACK);
 
-		if (GetKey(olc::SPACE).bPressed) 
+		if (GetKey(olc::SPACE).bPressed) {
 			a.Pause_Progress();
-		if (GetKey(olc::R).bPressed) 
+	
+		}
+
+		if (GetKey(olc::R).bPressed) {
 			a.Reset_Progress();
 		
-		if (GetMouse(0).bPressed)
-			b1.Check_Click(mouse_x, mouse_y);
-
-		if (b1.Get_Status())
-			b1.Follow_Mouse(mouse_x, mouse_y);
+		}
 		
 		b1.Draw_Button();
  		//a.Draw_Circle_Visible ();		 
