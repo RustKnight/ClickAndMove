@@ -22,6 +22,7 @@ void InterfaceRect::Draw_Button()
 
 	pge->FillRect(x + 1, y + 1, width - 1, height - 1, shade);
 
+	Display_Value();
 }
 
 void InterfaceRect::Check_Click(int x_in, int y_in, int click)
@@ -51,10 +52,26 @@ void InterfaceRect::Follow_Mouse(int x_in, int y_in)
 
 void InterfaceRect::Change_Value()
 {
-	std::cin >> display_value;
+	std::cin >> stored_value;
 }
 
 bool InterfaceRect::Get_Status() const
 {
 	return follow;
+}
+
+void InterfaceRect::Monitor_Value(int val)
+{
+	stored_value = val;
+
+}
+
+void InterfaceRect::Display_Value() const
+{
+
+	std::string s = std::to_string(stored_value);
+	int size = s.size();
+
+
+	pge->DrawString((x + width/2) - size * 4, y + height/4, s);
 }
