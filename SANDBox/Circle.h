@@ -19,6 +19,8 @@ public:
 	void Pause_Progress();
 	void Reset_Progress();
 
+	int& Get_Progress();
+
 	void Highlight_Slice(int x, int y);
 
 private:

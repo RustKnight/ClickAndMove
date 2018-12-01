@@ -209,6 +209,11 @@ void Circle::Reset_Progress()
 	Set_Segments(segments);
 }
 
+int& Circle::Get_Progress() 
+{
+	return progress;
+}
+
 
 // highlighting slice offers nothing - a slice has no color information - better highlight circle segments and display their color
 void Circle::Highlight_Slice(int x, int y)

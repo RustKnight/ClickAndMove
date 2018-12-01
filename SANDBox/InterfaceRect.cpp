@@ -37,7 +37,7 @@ void InterfaceRect::Check_Click(int x_in, int y_in, int click)
 
 	if (click == 0) {
 		if (x_in >= x && x_in <= x + width && y_in >= y && y_in <= y + height)
-			Change_Value();
+			Change_Value(*monitored_value);
 	}
 }
 
@@ -50,9 +50,9 @@ void InterfaceRect::Follow_Mouse(int x_in, int y_in)
 
 }
 
-void InterfaceRect::Change_Value()
+void InterfaceRect::Change_Value(int& r)
 {
-	std::cin >> stored_value;
+	std::cin >> *monitored_value;
 }
 
 bool InterfaceRect::Get_Status() const
@@ -60,18 +60,17 @@ bool InterfaceRect::Get_Status() const
 	return follow;
 }
 
-void InterfaceRect::Monitor_Value(int val)
+void InterfaceRect::Monitor_Value(int& val)
 {
-	stored_value = val;
-
+	monitored_value = &val;
 }
 
 void InterfaceRect::Display_Value() const
 {
 
-	std::string s = std::to_string(stored_value);
+	std::string s = std::to_string(*monitored_value);
 	int size = s.size();
 
 
-	pge->DrawString((x + width/2) - size * 4, y + height/4, s);
+	pge->DrawString((x + width/2) - size * 4, y + height/3, s);
 }

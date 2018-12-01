@@ -14,10 +14,10 @@ public:
 	void Follow_Mouse(int x_in, int y_in);
 	
 	bool Get_Status () const;
-	void Monitor_Value(int val);
+	void Monitor_Value(int& val);
 
 private:
-	void Change_Value();
+	void Change_Value(int& r);
 	void Display_Value() const;
 
 private:
@@ -30,7 +30,8 @@ private:
 	bool ready = false;
 	bool follow = false;
 
-	int stored_value = 0;
+
+	int* monitored_value;
 
 	int w_dif;
 	int h_dif;
