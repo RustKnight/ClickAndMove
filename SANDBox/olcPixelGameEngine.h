@@ -211,7 +211,7 @@ namespace olc // All OneLoneCoder stuff will now exist in the "olc" namespace
 				uint8_t r;	uint8_t g;	uint8_t b;	uint8_t a;
 			};
 		};
-
+		void set_alpha(uint8_t alph) { a = alph; }
 		Pixel();
 		Pixel(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha = 255);
 		enum Mode { NORMAL, MASK, ALPHA };
