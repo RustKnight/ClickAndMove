@@ -209,6 +209,8 @@ void Circle::Reset_Progress()
 	Set_Segments(segments);
 }
 
+
+// highlighting slice offers nothing - a slice has no color information - better highlight circle segments and display their color
 void Circle::Highlight_Slice(int x, int y)
 {
 	for (int i = 0; i < vCircle_slices.size(); i+= 2) {
