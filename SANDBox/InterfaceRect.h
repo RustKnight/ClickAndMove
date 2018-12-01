@@ -24,4 +24,7 @@ private:
 	olc::PixelGameEngine* pge;
 	bool ready = false;
 	bool follow = false;
+
+	int w_dif;
+	int h_dif;
 };
