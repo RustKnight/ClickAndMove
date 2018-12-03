@@ -23,10 +23,10 @@ public:
 		a.Set_Segments(4);
 		
 
-		interface_red.		Prepare_Button(50, 10, 40, 20, olc::RED);
-		interface_green.	Prepare_Button(50, 50, 40, 20, olc::GREEN);
-		interface_blue.		Prepare_Button(50, 90, 40, 20, olc::BLUE);
-		interface_progress.	Prepare_Button(50, 130, 40, 20, olc::Pixel{ 225, 75, 0 });
+		interface_red.		Prepare_Button(320, 180, 40, 20, olc::RED);
+		interface_green.	Prepare_Button(380, 180, 40, 20, olc::GREEN);
+		interface_blue.		Prepare_Button(440, 180, 40, 20, olc::BLUE);
+		interface_progress.	Prepare_Button(380, 140, 40, 20, olc::Pixel{ 225, 75, 0 });
 
 		vInterfaces.push_back(&interface_red);
 		vInterfaces.push_back(&interface_green);
