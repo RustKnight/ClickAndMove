@@ -64,7 +64,7 @@ void Circle::Sketch_Circle()
 			// if we entered, but no longer trigger  the above if cond. - it means we are under the half of the circle
 			else
 				if (entered) {
-					vCircle_slices.push_back({ Point{ x, y -1 } }); // end point
+					vCircle_slices.push_back({ Point{ x, y } }); // end point 
 					entered = false;
 				}
 
@@ -116,6 +116,9 @@ void Circle::Set_Segments(int seg)
 
 	//srand(time(NULL));
 
+	// be sure to clear vCir_seg each time we repick colors
+	vCir_seg.clear();
+
 	segments = seg;
 
 	int sz;
@@ -137,9 +140,6 @@ void Circle::Set_Segments(int seg)
 
 	for (int i = 0; i < segments; ++i) {
 		
-		color_read.push_back(col_r{ red, 'r' });
-		color_read.push_back(col_r{ green, 'g' });
-		color_read.push_back(col_r{ blue, 'b' });
 	
 		start	= end;
 		end		+= sz;
@@ -216,17 +216,39 @@ int& Circle::Get_Progress()
 
 
 // highlighting slice offers nothing - a slice has no color information - better highlight circle segments and display their color
-void Circle::Highlight_Slice(int x, int y)
+void Circle::Highlight_Segment(int x, int y)
 {
-	for (int i = 0; i < vCircle_slices.size(); i+= 2) {
 
-		if (vCircle_slices[i].x == x && y >= y_cen - radius && y <= y_cen + radius) {
-			int line_lenght = vCircle_slices[i + 1].y - vCircle_slices[i].y;
-			pge->DrawRect(vCircle_slices[i].x - 1, vCircle_slices[i].y - 1, 1, line_lenght + 1, olc::GREEN);
+	int offset = x_cen - radius;
+
+	int sz;
+	sz = vCircle_slices.size() / 2;
+	sz /= segments;
+
+	int seg_width = sz + 1;
+	int seg_height = (y_cen + radius) - (y_cen - radius);
+
+	for (int i = 0; i < vCir_seg.size(); ++i) {
+		
+		
+		if (x >= offset + vCir_seg[i].start_point /2 && x < offset + vCir_seg[i].end_point / 2 && y >= y_cen - radius && y <= y_cen + radius) {
+			r_seg = vCir_seg[i].color.r;
+			g_seg = vCir_seg[i].color.g;
+			b_seg = vCir_seg[i].color.b;
+
+			// draw rect around circle segment
+			pge->DrawRect(vCir_seg[i].start_point /2 + offset, y_cen - radius, seg_width, seg_height, olc::GREEN);
 		}
 	}
 
-
+	//for (int i = 0; i < vCircle_slices.size(); ++i) {
+	//
+	//	if (vCircle_slices[i].x == x && y >= y_cen - radius && y <= y_cen + radius) {
+	//		int line_lenght = vCircle_slices[i + 1].y - vCircle_slices[i].y;
+	//		pge->DrawRect(vCircle_slices[i].x - 1, vCircle_slices[i].y - 1, 1, line_lenght + 1, olc::GREEN);
+	//	}
+	//}
+	//
 }
 
 

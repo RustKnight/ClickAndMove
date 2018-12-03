@@ -52,6 +52,49 @@ void InterfaceRect::Follow_Mouse(int x_in, int y_in)
 
 void InterfaceRect::Change_Value(int& r)
 {
+	
+/*
+	while (1) {
+
+		if (pge->GetKey(olc::SPACE).bPressed)
+			break;
+
+		if		(pge->GetKey(olc::K1).bPressed)
+			s += "1";
+
+		else if (pge->GetKey(olc::K2).bPressed)
+			s += "2";
+
+		else if (pge->GetKey(olc::K3).bPressed)
+			s += "3";
+
+		else if (pge->GetKey(olc::K4).bPressed)
+			s += "4";
+
+		else if (pge->GetKey(olc::K5).bPressed)
+			s += "5";
+
+		else if (pge->GetKey(olc::K6).bPressed)
+			s += "6";
+
+		else if (pge->GetKey(olc::K7).bPressed)
+			s += "7";
+
+		else if (pge->GetKey(olc::K8).bPressed)
+			s += "8";
+
+		else if (pge->GetKey(olc::K9).bPressed)
+			s += "9";
+
+		else if (pge->GetKey(olc::K0).bPressed)
+			s += "0";
+	}
+
+
+	int num = std::stoi(s);
+
+	*/
+
 	std::cin >> *monitored_value;
 }
 

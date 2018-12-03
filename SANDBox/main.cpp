@@ -20,12 +20,18 @@ public:
 	{
 		
 		a.Prepare_Circle(400, 300, 50);
-		a.Set_Segments(50);
+		a.Set_Segments(4);
 		
 
-		b1.Prepare_Button(50, 10, 40, 20, olc::GREEN);
-		b2.Prepare_Button(50, 50, 40, 20, olc::RED);
-		b3.Prepare_Button(50, 90, 40, 20, olc::Pixel{ 225, 75, 0 });
+		interface_red.		Prepare_Button(50, 10, 40, 20, olc::RED);
+		interface_green.	Prepare_Button(50, 50, 40, 20, olc::GREEN);
+		interface_blue.		Prepare_Button(50, 90, 40, 20, olc::BLUE);
+		interface_progress.	Prepare_Button(50, 130, 40, 20, olc::Pixel{ 225, 75, 0 });
+
+		vInterfaces.push_back(&interface_red);
+		vInterfaces.push_back(&interface_green);
+		vInterfaces.push_back(&interface_blue);
+		vInterfaces.push_back(&interface_progress);
 
 		return true;
 	}
@@ -40,45 +46,39 @@ public:
 
 		Clear(olc::BLACK);
 
-		b1.Monitor_Value(mouse_x);
-		b2.Monitor_Value(mouse_y);
-		b3.Monitor_Value(a.Get_Progress());
-
+		interface_red.Monitor_Value				(a.r_seg);
+		interface_green.Monitor_Value			(a.g_seg);
+		interface_blue.Monitor_Value			(a.b_seg);
+		interface_progress.Monitor_Value		(a.Get_Progress());
 
 		if (GetKey(olc::SPACE).bPressed) 
 			a.Pause_Progress();
 		if (GetKey(olc::R).bPressed) 
 			a.Reset_Progress();
 		
-		if (GetMouse(1).bPressed) {
-			b1.Check_Click(mouse_x, mouse_y, 1);
-			b2.Check_Click(mouse_x, mouse_y, 1);
-			b3.Check_Click(mouse_x, mouse_y, 1);
-		}
-		if (GetMouse(0).bPressed) {
-			b1.Check_Click(mouse_x, mouse_y, 0);
-			b2.Check_Click(mouse_x, mouse_y, 0);
-			b3.Check_Click(mouse_x, mouse_y, 0);
-		}
 
-
-		if (b1.Get_Status())
-			b1.Follow_Mouse(mouse_x, mouse_y);
-
-		if (b2.Get_Status())
-			b2.Follow_Mouse(mouse_x, mouse_y);
-
-		if (b3.Get_Status())
-			b3.Follow_Mouse(mouse_x, mouse_y);
+		// move Button
+		if (GetMouse(1).bPressed) 
+			for (InterfaceRect* iR : vInterfaces)
+			iR->Check_Click(mouse_x, mouse_y, 1);
+			
 		
-		b1.Draw_Button();
-		b2.Draw_Button();
-		b3.Draw_Button();
+		// Modify value
+		if (GetMouse(0).bPressed) 
+			for (InterfaceRect* iR : vInterfaces)
+				iR->Check_Click(mouse_x, mouse_y, 0);
 
+
+		for (InterfaceRect* iR : vInterfaces) {
+			if (iR->Get_Status())
+				iR->Follow_Mouse(mouse_x, mouse_y);
+
+			iR->Draw_Button();
+		}
 		
 
  		a.Draw_Circle_Visible ();		 
-		a.Highlight_Slice(mouse_x, mouse_y);
+		a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;
 	}
@@ -86,9 +86,11 @@ public:
 
 private:
 	Circle a { this };
-	InterfaceRect b1{ this };
-	InterfaceRect b2{ this };
-	InterfaceRect b3{ this };
+	InterfaceRect interface_red{ this };
+	InterfaceRect interface_green{ this };
+	InterfaceRect interface_blue{ this };
+	InterfaceRect interface_progress{ this };
+	std::vector <InterfaceRect*> vInterfaces;
 
 	int mouse_x;
 	int mouse_y;

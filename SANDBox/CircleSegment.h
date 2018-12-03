@@ -14,15 +14,3 @@ struct CircleSegment {
 	olc::Pixel color;
 };
 
-
-// debug
-struct col_r {
-
-	col_r (float coll, char cc)
-		: col {coll}, c {cc}
-	{}
-
-	float col;
-	char c;
-
-};

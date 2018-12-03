@@ -21,7 +21,12 @@ public:
 
 	int& Get_Progress();
 
-	void Highlight_Slice(int x, int y);
+	void Highlight_Segment(int x, int y);
+
+
+	int r_seg;
+	int g_seg;
+	int b_seg;
 
 private:
 	void Sketch_Circle();
@@ -40,12 +45,15 @@ private:
 	std::vector <CircleSegment> vCir_seg;
 	int progress = 0;
 
+
 	int x_cen = 010;
 	int y_cen = 010;
 	int radius = 0;
 	int segments = 0;
 
+	
+
 	//debug
 	
-	std::vector<col_r> color_read;
+	
 };
