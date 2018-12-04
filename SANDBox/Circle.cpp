@@ -192,8 +192,6 @@ float Circle::Rnd_Color(char c, float rd, float gr, float bl, bool direction)
 		break;
 
 	}
-
-
 }
 
 
@@ -236,8 +234,13 @@ void Circle::Highlight_Segment(int x, int y)
 			g_seg = vCir_seg[i].color.g;
 			b_seg = vCir_seg[i].color.b;
 
+			
 			// draw rect around circle segment
-			pge->DrawRect(vCir_seg[i].start_point /2 + offset, y_cen - radius, seg_width, seg_height, olc::GREEN);
+			olc::Pixel c = olc::GREEN;
+
+			pge->DrawRect(vCir_seg[i].start_point /2 + offset, y_cen - radius, seg_width, seg_height, c);
+			c.set_alpha(80);
+			pge->FillRect(vCir_seg[i].start_point / 2 + offset+1, y_cen - radius+1, seg_width -1, seg_height-1, c);
 		}
 	}
 

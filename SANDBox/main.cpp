@@ -19,8 +19,8 @@ public:
 	bool OnUserCreate() override
 	{
 		
-		a.Prepare_Circle(400, 300, 50);
-		a.Set_Segments(4);
+		a.Prepare_Circle(400, 300, 80);
+		a.Set_Segments(circle_segments);
 		
 
 		interface_red.		Prepare_Button(320, 180, 40, 20, olc::RED);
@@ -40,6 +40,12 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override
 	{	
+
+		if (GetKey(olc::DOWN).bPressed)
+		a.Set_Segments(circle_segments -= 3);
+
+		if (GetKey(olc::UP).bPressed)
+			a.Set_Segments(circle_segments += 3);
 
 		mouse_x = GetMouseX();
 		mouse_y = GetMouseY();
@@ -91,6 +97,8 @@ private:
 	InterfaceRect interface_blue{ this };
 	InterfaceRect interface_progress{ this };
 	std::vector <InterfaceRect*> vInterfaces;
+
+	int circle_segments = 40;
 
 	int mouse_x;
 	int mouse_y;
