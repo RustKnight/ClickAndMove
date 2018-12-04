@@ -19,10 +19,9 @@ void Circle::Draw_CircleFilled()
 	assert(ready);
 	
 
-	for (int i = 0; i < total_slices ; i++) {
-
+	for (int i = 0; i < total_slices ; i++) 
 		Draw_Slice(i, olc::RED);
-	}		
+	
 }
 
 void Circle::Draw_Circle()
@@ -97,25 +96,17 @@ void Circle::Draw_Circle_Algorithm_Visible()
 
 void Circle::Draw_Circle_Visible()
 {
-
 	assert(ready);
 
-//	for each cer. segment draw from his start point till his end point 
-
+	//draw all slices, grouped into segments - conditioned by progress and by their end point
 		for (int e = 0; e < vCir_seg.size(); ++e)
-	
 			for (int i = vCir_seg[e].start_point; i < vCir_seg[e].end_point && i < progress; i++)
 				Draw_Slice(i, vCir_seg[e].color);
 		
-
-	// circle might be actually missing a last slice
-
 		
 		if (go)
 			if (progress < total_slices)
-				progress += 1;
-
-
+				progress += 2;
 }
 
 
@@ -131,6 +122,7 @@ void Circle::Set_Segments(int n_segments)
 
 	segments = n_segments;
 	
+
 	// one solution is to grow the circle's circumf. that way the total slices change and might fit the requaired segments
 	while (total_slices % segments != 0) {
 		segments++;
@@ -146,11 +138,6 @@ void Circle::Set_Segments(int n_segments)
 	segment_size = total_slices / segments;
 
 	
-
-	//if (segment_size % 2 == 1)
-	//	segment_size += 1;
-	//
-	//segment_size -= 2;
 
 	int start = 0;
 	int end = 0;
@@ -180,15 +167,10 @@ void Circle::Set_Segments(int n_segments)
 
 
 
-// highlighting slice offers nothing - a slice has no color information - better highlight circle segments and display their color
 void Circle::Highlight_Segment(int x, int y)
 {
 	// cir_seg contains only intervals - these intervals need to be added to an offset
 	int offset = x_cen - radius;
-
-
-	// vCircle_slices contains slices represented as 2 points
-
 
 
 	int seg_width = segment_size;
