@@ -19,7 +19,7 @@ public:
 	bool OnUserCreate() override
 	{
 		
-		a.Prepare_Circle(400, 300, 80);
+		a.Prepare_Circle(400, 300, 50);
 		a.Set_Segments(circle_segments);
 		
 
@@ -98,7 +98,7 @@ private:
 	InterfaceRect interface_progress{ this };
 	std::vector <InterfaceRect*> vInterfaces;
 
-	int circle_segments = 40;
+	int circle_segments = 120;
 
 	int mouse_x;
 	int mouse_y;

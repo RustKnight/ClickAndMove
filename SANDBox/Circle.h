@@ -15,6 +15,7 @@ public:
 	void Draw_CircleFilled();
 	void Draw_Circle();
 	void Draw_Circle_Visible();
+	void Draw_Circle_Algorithm_Visible();
 	void Set_Segments(int seg);
 	void Pause_Progress();
 	void Reset_Progress();

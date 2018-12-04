@@ -45,6 +45,8 @@ void Circle::Draw_Circle()
 
 void Circle::Sketch_Circle()
 {
+
+
 	for (int x = x_cen - radius; x <= (x_cen + radius); ++x) {
 		for (int y = y_cen - radius; y <= (y_cen + radius); ++y) {
 
@@ -83,6 +85,13 @@ void Circle::Sketch_Circle()
 
 }
 
+void Circle::Draw_Circle_Algorithm_Visible()
+{
+	pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
+
+
+}
+
 
 void Circle::Draw_Circle_Visible()
 {
@@ -108,6 +117,8 @@ void Circle::Draw_Circle_Visible()
 
 
 }
+
+
 
 void Circle::Set_Segments(int seg)
 {
@@ -223,13 +234,13 @@ void Circle::Highlight_Segment(int x, int y)
 	sz = vCircle_slices.size() / 2;
 	sz /= segments;
 
-	int seg_width = sz + 1;
+	int seg_width = sz;
 	int seg_height = (y_cen + radius) - (y_cen - radius);
 
 	for (int i = 0; i < vCir_seg.size(); ++i) {
 		
 		
-		if (x >= offset + vCir_seg[i].start_point /2 && x < offset + vCir_seg[i].end_point / 2 && y >= y_cen - radius && y <= y_cen + radius) {
+		if (x >= offset + (vCir_seg[i].start_point /2) && x < offset + (vCir_seg[i].end_point / 2) && y >= y_cen - radius && y <= y_cen + radius) {
 			r_seg = vCir_seg[i].color.r;
 			g_seg = vCir_seg[i].color.g;
 			b_seg = vCir_seg[i].color.b;
