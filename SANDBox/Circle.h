@@ -17,7 +17,7 @@ public:
 	void Draw_Circle();
 	void Draw_Circle_Visible();
 	void Draw_FilledCircle_Visiblie();
-	void Draw_Circle_Algorithm_Visible();
+	void Draw_Circle_Algorithm_Visible(float fElapsedTime);
 	
 	void Set_Segments(int n_segments);
 	void Pause_Progress();
@@ -25,6 +25,7 @@ public:
 	void Highlight_Segment(int x, int y);
 
 	int& Get_Progress();
+	float& Get_ControlValue();
 
 	
 
@@ -38,7 +39,7 @@ private:
 	void Sketch_Circle();
 	void Draw_Slice(int number, olc::Pixel);
 	float Rnd_Color(char c, float r, float g, float b, bool direction);
-	
+	void NewCircle();
 
 private:
 	// maybe make a single bool that is controled by several pointers with different names : entered, left, etc.
@@ -47,13 +48,16 @@ private:
 	bool starting_point = false;
 	bool ready = false;
 	bool go = false;
+	bool not_done = true;
 	std::vector<Point> vCircle_points;
 	std::vector <Point> vCircle_slices;
 	std::vector <CircleSegment> vCir_seg;
 	int progress = 0;
+	float control_value = 0;
+	bool play_start_animation = true;
 	int segment_size;
 	int total_slices = -2; // -1 because first check fails to detect the first 2 points, and another -1 (total -2) because we want our first line to have the value 0
-	
+	Circle* demo_circle = nullptr;
 
 	int x_cen = 010;
 	int y_cen = 010;

@@ -108,6 +108,7 @@ void Circle::Sketch_Circle()
 					
 		}
 
+	// AFTER TOP HALF IS DONE, REPEAT FOR LOWER HALF
 
 	for (int x = x_cen + radius; x >= x_cen - radius; --x)
 		for (int y = y_cen + radius; y >= y_cen - radius; --y) {
@@ -125,11 +126,70 @@ void Circle::Sketch_Circle()
 
 }
 
-void Circle::Draw_Circle_Algorithm_Visible()
+void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 {
-	pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
+
+	assert(ready);
+	
+	// function should handle only pointer assignemnt
+	if (demo_circle == nullptr)
+		NewCircle();
+
+	int radius_highlight = (demo_circle->vCircle_points.size() / 2) / 3 - 15; // aiming for 10 o'clock-ish point
+	pge->FillCircle(x_cen, y_cen, 1, olc::WHITE);
 
 
+	if (play_start_animation) {
+
+		if ((int)control_value > 0)
+		pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
+
+		if ((int)control_value > 1)
+		pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
+
+		if ((int)control_value > 2)
+				demo_circle->Draw_Circle_Visible();
+
+		if (demo_circle->progress == demo_circle->vCircle_points.size()) {
+			play_start_animation = false;
+			control_value = 0;
+		}
+	}
+
+
+
+	
+
+	else {
+
+
+		if (go)
+
+			if (not_done) {
+
+				switch ((int)control_value) {
+
+				case 0:
+					pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
+					pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
+					
+
+				case 1:
+
+				
+					
+
+				case 2:
+					
+				}
+
+			}
+
+	}
+
+
+	if (go)
+		control_value += fElapsedTime * 2.0f;
 }
 
 
@@ -142,7 +202,7 @@ void Circle::Draw_Circle_Visible()
 		pge->Draw(vCircle_points[i].x, vCircle_points[i].y, olc::RED);
 
 
-	if (go)
+	// go removed for demo circle
 		if (progress < vCircle_points.size())
 			progress += 2;
 
@@ -293,6 +353,15 @@ float Circle::Rnd_Color(char c, float rd, float gr, float bl, bool direction)
 	}
 }
 
+void Circle::NewCircle()
+{
+
+	demo_circle = new Circle{ pge };
+
+	demo_circle->Prepare_Circle(x_cen, y_cen, radius, 0);
+	
+}
+
 
 
 
@@ -310,6 +379,13 @@ void Circle::Reset_Progress()
 int& Circle::Get_Progress() 
 {
 	return progress;
+}
+
+float & Circle::Get_ControlValue()
+{
+	return control_value;
+
+	// TODO: insert return statement here
 }
 
 

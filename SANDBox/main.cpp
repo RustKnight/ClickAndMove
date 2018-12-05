@@ -6,6 +6,8 @@
 
 // it seems that refrences cannot be uninit. exchange them with pointers.
 
+
+// Circle DRAW should be based on elapsed time TODO
 class Demo : public olc::PixelGameEngine
 {
 public:
@@ -19,7 +21,7 @@ public:
 	bool OnUserCreate() override
 	{
 		
-		a.Prepare_Circle(400, 300, 60, 0);
+		a.Prepare_Circle(400, 300, 60, 1);
 		a.Set_Segments(circle_segments);
 		
 
@@ -52,10 +54,12 @@ public:
 
 		Clear(olc::BLACK);
 
+		int cv = (int) a.Get_ControlValue();
+
 		interface_red.Monitor_Value				(a.r_seg);
 		interface_green.Monitor_Value			(a.g_seg);
 		interface_blue.Monitor_Value			(a.b_seg);
-		interface_progress.Monitor_Value		(a.Get_Progress());
+		interface_progress.Monitor_Value		(cv);
 
 		if (GetKey(olc::SPACE).bPressed) 
 			a.Pause_Progress();
@@ -83,7 +87,7 @@ public:
 		}
 		
 
- 		a.Draw_Circle_Visible();		 
+ 		a.Draw_Circle_Algorithm_Visible(fElapsedTime);
 		a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;
