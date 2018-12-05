@@ -11,7 +11,7 @@ public:
 		pge {ref}
 	{}
 
-	void Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius);
+	void Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius, bool filled);
 	
 	void Draw_CircleFilled();
 	void Draw_Circle();
@@ -33,11 +33,11 @@ public:
 	int b_seg;
 
 private:
+	void Sketch_Circle_Filled();
 	void Sketch_Circle();
 	void Draw_Slice(int number, olc::Pixel);
 	float Rnd_Color(char c, float r, float g, float b, bool direction);
 	
-	// might need a refreh/clear method
 
 private:
 	// maybe make a single bool that is controled by several pointers with different names : entered, left, etc.
@@ -46,6 +46,7 @@ private:
 	bool starting_point = false;
 	bool ready = false;
 	bool go = false;
+	std::vector<Point> vCircle_points;
 	std::vector <Point> vCircle_slices;
 	std::vector <CircleSegment> vCir_seg;
 	int progress = 0;

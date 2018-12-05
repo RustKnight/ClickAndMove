@@ -3,12 +3,16 @@
 
 
 
-void Circle::Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius)
+void Circle::Prepare_Circle(int in_x_cen, int in_y_cen, int in_radius, bool filled)
 {
 	x_cen = in_x_cen;
 	y_cen = in_y_cen;
 	radius = in_radius;
 
+	if (filled)
+		Sketch_Circle_Filled();
+
+	else
 	Sketch_Circle();
 
 	ready = true;
@@ -24,34 +28,18 @@ void Circle::Draw_CircleFilled()
 	
 }
 
-void Circle::Draw_Circle()
-{
-	assert(ready);
-
-	int adjuster = 1;
-
-	for (int i = 0; i < vCircle_slices.size(); ++i) {
-
-		if (i + adjuster >= vCircle_slices.size())
-			adjuster = 0;
-
-		pge->Draw (vCircle_slices[i].x, vCircle_slices[i].y, olc::RED);
-		pge->Draw (vCircle_slices[i + adjuster].x, vCircle_slices[i + adjuster].y, olc::RED);
-	}
-}
 
 
-
-void Circle::Sketch_Circle()
+void Circle::Sketch_Circle_Filled()
 {
 
 
 	for (int x = x_cen - radius; x <= (x_cen + radius); ++x) {
 		for (int y = y_cen - radius; y <= (y_cen + radius); ++y) {
 
-			int a_x_sz = (x - x_cen) * (x - x_cen);
-			int a_y_sz = (y - y_cen) * (y - y_cen);
-			int distance = a_x_sz + a_y_sz;
+			int hori_cathetus = (x - x_cen) * (x - x_cen);
+			int vert_cathetus = (y - y_cen) * (y - y_cen);
+			int distance = hori_cathetus + vert_cathetus;
 
 			// first time in this loop when this if is true is the starting point --- // end point should be set automat. when Y loop ends, if no end point was found in the search
 
@@ -83,6 +71,34 @@ void Circle::Sketch_Circle()
 		starting_point = false;
 
 	}
+
+}
+
+
+void Circle::Draw_Circle()
+{
+	assert(ready);
+
+	for (Point p : vCircle_points)
+		pge->Draw(p.x, p.y, olc::RED);
+
+}
+
+
+void Circle::Sketch_Circle()
+{
+
+	for (int x = x_cen - radius; x <= (x_cen + radius); ++x) 
+		for (int y = y_cen - radius; y <= (y_cen + radius); ++y) {
+
+			int hori_cathetus = (x - x_cen) * (x - x_cen);
+			int vert_cathetus = (y - y_cen) * (y - y_cen);
+			int distance = hori_cathetus + vert_cathetus;
+
+			
+			if (distance < radius * radius)
+				vCircle_points.push_back(Point{ x, y });
+		}
 
 }
 

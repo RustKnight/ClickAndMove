@@ -19,7 +19,7 @@ public:
 	bool OnUserCreate() override
 	{
 		
-		a.Prepare_Circle(400, 300, 60);
+		a.Prepare_Circle(400, 300, 60, 0);
 		a.Set_Segments(circle_segments);
 		
 
@@ -83,7 +83,7 @@ public:
 		}
 		
 
- 		a.Draw_Circle_Visible ();		 
+ 		a.Draw_Circle();		 
 		a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;
