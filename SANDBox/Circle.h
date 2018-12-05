@@ -26,7 +26,7 @@ public:
 
 	int& Get_Progress();
 	float& Get_ControlValue();
-
+	float& Get_ControlValue_Mod();
 	
 
 
@@ -48,12 +48,14 @@ private:
 	bool starting_point = false;
 	bool ready = false;
 	bool go = false;
-	bool not_done = true;
+	//bool not_done = true;
 	std::vector<Point> vCircle_points;
 	std::vector <Point> vCircle_slices;
 	std::vector <CircleSegment> vCir_seg;
+	std::vector <Point> vDemoCircle_points;
 	int progress = 0;
 	float control_value = 0;
+	float control_value_mod = 0;
 	bool play_start_animation = true;
 	int segment_size;
 	int total_slices = -2; // -1 because first check fails to detect the first 2 points, and another -1 (total -2) because we want our first line to have the value 0
@@ -64,7 +66,9 @@ private:
 	int radius = 0;
 	int segments = 0;
 
-	
+	int x_algo;
+	int y_algo;
+
 
 	//debug
 	

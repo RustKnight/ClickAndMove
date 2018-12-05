@@ -43,11 +43,13 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override
 	{	
 
-		if (GetKey(olc::DOWN).bPressed)
-		a.Set_Segments(circle_segments -= 3);
-
 		if (GetKey(olc::UP).bPressed)
-			a.Set_Segments(circle_segments += 3);
+		//	a.Set_Segments(circle_segments += 3);
+			a.Get_ControlValue_Mod() += 10.0f;
+
+		if (GetKey(olc::DOWN).bPressed)
+		//	a.Set_Segments(circle_segments -= 3);
+			a.Get_ControlValue_Mod() -= 10.0f;
 
 		mouse_x = GetMouseX();
 		mouse_y = GetMouseY();
@@ -56,7 +58,8 @@ public:
 
 		int cv = (int) a.Get_ControlValue();
 
-		interface_red.Monitor_Value				(a.r_seg);
+		int control_mod_display = a.Get_ControlValue_Mod();
+		interface_red.Monitor_Value				(control_mod_display);
 		interface_green.Monitor_Value			(a.g_seg);
 		interface_blue.Monitor_Value			(a.b_seg);
 		interface_progress.Monitor_Value		(cv);
