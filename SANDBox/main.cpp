@@ -83,7 +83,7 @@ public:
 		}
 		
 
- 		a.Draw_Circle();		 
+ 		a.Draw_Circle_Visible();		 
 		a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;

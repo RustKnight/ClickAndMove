@@ -79,25 +79,48 @@ void Circle::Draw_Circle()
 {
 	assert(ready);
 
-	for (Point p : vCircle_points)
-		pge->Draw(p.x, p.y, olc::RED);
+	for (int i = 0; i < vCircle_points.size(); ++i)
+		pge->Draw(vCircle_points[i].x, vCircle_points[i].y, olc::RED);
 
 }
 
 
 void Circle::Sketch_Circle()
 {
+	
+	// need to scale inner ring properly
 
-	for (int x = x_cen - radius; x <= (x_cen + radius); ++x) 
-		for (int y = y_cen - radius; y <= (y_cen + radius); ++y) {
+	int outer_radius = radius * radius;
+	int inner_radius_dif = (radius * radius) * 0.0334f;
+	
+
+	for (int x = x_cen - radius; x <= x_cen + radius; ++x) 
+		for (int y = y_cen - radius; y <= y_cen + radius; ++y) {
+
+			int hori_cathetus = (x - x_cen) * (x - x_cen);
+			int vert_cathetus = (y - y_cen) * (y - y_cen);
+			int distance = hori_cathetus + vert_cathetus;
+			
+			
+			if (distance < outer_radius && distance > outer_radius - 120)
+				if (y <= y_cen)
+					vCircle_points.push_back(Point{ x, y });
+					
+		}
+
+
+	for (int x = x_cen + radius; x >= x_cen - radius; --x)
+		for (int y = y_cen + radius; y >= y_cen - radius; --y) {
 
 			int hori_cathetus = (x - x_cen) * (x - x_cen);
 			int vert_cathetus = (y - y_cen) * (y - y_cen);
 			int distance = hori_cathetus + vert_cathetus;
 
+
+			if (distance < outer_radius && distance > outer_radius - 120)
+				if (y > y_cen)
+					vCircle_points.push_back(Point{ x, y });
 			
-			if (distance < radius * radius)
-				vCircle_points.push_back(Point{ x, y });
 		}
 
 }
@@ -114,18 +137,34 @@ void Circle::Draw_Circle_Visible()
 {
 	assert(ready);
 
-	//draw all slices, grouped into segments - conditioned by progress and by their end point
-		for (int e = 0; e < vCir_seg.size(); ++e)
-			for (int i = vCir_seg[e].start_point; i < vCir_seg[e].end_point && i < progress; i++)
-				Draw_Slice(i, vCir_seg[e].color);
-		
-		
-		if (go)
-			if (progress < total_slices)
-				progress += 2;
+
+	for (int i = 0; i < vCircle_points.size() && i < progress; ++i)
+		pge->Draw(vCircle_points[i].x, vCircle_points[i].y, olc::RED);
+
+
+	if (go)
+		if (progress < vCircle_points.size())
+			progress += 2;
+
 }
 
 
+void Circle::Draw_FilledCircle_Visiblie() {
+
+	assert(ready);
+
+	//draw all slices, grouped into segments - conditioned by progress and by their end point
+	for (int e = 0; e < vCir_seg.size(); ++e)
+		for (int i = vCir_seg[e].start_point; i < vCir_seg[e].end_point && i < progress; i++)
+			Draw_Slice(i, vCir_seg[e].color);
+
+
+	if (go)
+		if (progress < total_slices)
+			progress += 2;
+
+
+}
 
 void Circle::Set_Segments(int n_segments)
 {

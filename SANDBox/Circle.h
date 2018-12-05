@@ -16,6 +16,7 @@ public:
 	void Draw_CircleFilled();
 	void Draw_Circle();
 	void Draw_Circle_Visible();
+	void Draw_FilledCircle_Visiblie();
 	void Draw_Circle_Algorithm_Visible();
 	
 	void Set_Segments(int n_segments);
