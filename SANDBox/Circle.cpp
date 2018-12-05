@@ -219,7 +219,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
 
 						//draw vertical cathetus
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::CYAN);
+						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::RED);
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::BLUE);
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
@@ -231,7 +231,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
 
 						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::CYAN);
+						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::RED);
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::BLUE);
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
@@ -242,12 +242,12 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 							for (Point p : vDemoCircle_points)
 								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
 
-						if (distance > radius)
+						if (distance > radius * radius)
 							pge->FillCircle(x_algo, y_algo, 2, olc::RED);
 						else
 							pge->FillCircle(x_algo, y_algo, 2, olc::GREEN);
 						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::CYAN);
+						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::RED);
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::BLUE);
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
@@ -262,7 +262,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 						vDemoCircle_points.push_back(Point{ x_algo, y_algo });
 
 						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::CYAN);
+						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::RED);
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::BLUE);
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
@@ -280,7 +280,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 							vDemoCircle_points.push_back(Point{ x_algo, y_algo });
 
 						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::CYAN);
+						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::RED);
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::BLUE);
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
