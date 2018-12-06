@@ -96,7 +96,7 @@ void Circle::Sketch_Circle()
 	// need to scale inner ring properly
 
 	int outer_radius = radius * radius;
-	int inner_radius_dif = (radius * radius) * 0.0334f;
+	int inner_radius_dif = 170;						//(radius * radius) * 0.0334f;
 	
 
 	for (int x = x_cen - radius; x <= x_cen + radius; ++x) 
@@ -107,7 +107,7 @@ void Circle::Sketch_Circle()
 			int distance = hori_cathetus + vert_cathetus;
 			
 			
-			if (distance < outer_radius && distance > outer_radius - 120)
+			if (distance < outer_radius && distance > outer_radius - inner_radius_dif) //120 when written
 				if (y <= y_cen)
 					vCircle_points.push_back(Point{ x, y });
 					
@@ -123,7 +123,7 @@ void Circle::Sketch_Circle()
 			int distance = hori_cathetus + vert_cathetus;
 
 
-			if (distance < outer_radius && distance > outer_radius - 120)
+			if (distance < outer_radius && distance > outer_radius - inner_radius_dif)
 				if (y > y_cen)
 					vCircle_points.push_back(Point{ x, y });
 			
