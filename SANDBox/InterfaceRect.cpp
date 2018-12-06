@@ -1,5 +1,6 @@
 #include "InterfaceRect.h"
 #include <assert.h>
+#include <sstream>
 
 void InterfaceRect::Prepare_Button(int xx, int yy, int w, int h, olc::Pixel col)
 {
@@ -48,6 +49,16 @@ void InterfaceRect::Follow_Mouse(int x_in, int y_in)
 	x = x_in - w_dif;
 	y = y_in - h_dif;
 
+}
+
+void InterfaceRect::Move_on_X(int xx)
+{
+	x = xx;
+}
+
+void InterfaceRect::Move_on_Y(int yy)
+{
+	y = yy;
 }
 
 void InterfaceRect::Change_Value(int& r)
@@ -108,12 +119,45 @@ void InterfaceRect::Monitor_Value(int& val)
 	monitored_value = &val;
 }
 
+void InterfaceRect::Monitor_Value(char val)
+{
+	monitored_value_char = val;
+}
+
+void InterfaceRect::Monitor_Value(std::string s) {
+
+	int size = s.size();
+	
+	if (s == "---")
+		pge->DrawString((x + width / 2) - size * 4 + 2, y + height / 3, s, olc::WHITE, 1);
+
+	else
+	pge->DrawString((x + width / 2) - size * 4 + 2, y + height / 3, s, olc::YELLOW, 1);
+
+}
+
 void InterfaceRect::Display_Value() const
 {
+	if (monitored_value != nullptr) {
+		std::string s = std::to_string(*monitored_value);
+		int size = s.size();
 
-	std::string s = std::to_string(*monitored_value);
-	int size = s.size();
 
+		pge->DrawString((x + width / 2) - size * 4 + 1, y + height / 3, s);
+	}
 
-	pge->DrawString((x + width/2) - size * 4, y + height/3, s);
+	else {
+
+		std::stringstream ss;
+		std::string s;
+		char c = monitored_value_char;
+		ss << c;
+		ss >> s;
+		int size = s.size();
+
+		
+		pge->DrawString((x + width / 2) - size * 4 + 2, y + height / 3, s, olc::YELLOW, 1);
+
+	}
+
 }

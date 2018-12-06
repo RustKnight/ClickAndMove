@@ -12,9 +12,13 @@ public:
 	void Draw_Button ();
 	void Check_Click(int x_in, int y_in, int click);
 	void Follow_Mouse(int x_in, int y_in);
+	void Move_on_X(int xx);
+	void Move_on_Y(int yy);
 	
 	bool Get_Status () const;
 	void Monitor_Value(int& val);
+	void Monitor_Value(char val);
+	void Monitor_Value(std::string s);
 
 private:
 	void Change_Value(int& r);
@@ -31,7 +35,8 @@ private:
 	bool follow = false;
 
 
-	int* monitored_value;
+	int* monitored_value = nullptr;
+	char monitored_value_char;
 
 	int w_dif;
 	int h_dif;

@@ -33,6 +33,10 @@ public:
 	int r_seg;
 	int g_seg;
 	int b_seg;
+	char compare_rad_cath;
+	int x_algo;
+	int y_algo;
+	bool demo_start = false;
 
 private:
 	void Sketch_Circle_Filled();
@@ -48,6 +52,7 @@ private:
 	bool starting_point = false;
 	bool ready = false;
 	bool go = false;
+	bool demo_ended = false;
 	//bool not_done = true;
 	std::vector<Point> vCircle_points;
 	std::vector <Point> vCircle_slices;
@@ -66,8 +71,8 @@ private:
 	int radius = 0;
 	int segments = 0;
 
-	int x_algo;
-	int y_algo;
+	
+	
 
 
 	//debug
