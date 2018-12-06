@@ -25,10 +25,10 @@ public:
 		a.Set_Segments(circle_segments);
 		
 
-		interface_red.		Prepare_Button(400 - 43, 180, 40, 20, olc::RED);
+		interface_red.		Prepare_Button(400 - 43, a.y_algo - 52, 40, 20, olc::RED);
 	//	interface_green.	Prepare_Button(380, 180, 40, 20, olc::GREEN);
 	//	interface_blue.		Prepare_Button(440, 180, 40, 20, olc::BLUE);
-		interface_progress.	Prepare_Button(400 + 3, 180, 40, 20, olc::Pixel{ 225, 75, 0 });
+		interface_progress.	Prepare_Button(400 + 3, a.y_algo - 52, 40, 20, olc::Pixel{ 225, 75, 0 });
 		compare_sign.		Prepare_Button(800 * 0.70f -1, y_center - radius - 15, 11, 11, olc::WHITE);
 		x_axis.Prepare_Button(a.x_algo - 13, a.y_algo - 25, 27, 11, olc::WHITE);
 		y_axis.Prepare_Button(a.x_algo - 39, a.y_algo - 6, 27, 11, olc::WHITE);
