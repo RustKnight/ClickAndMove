@@ -7,7 +7,7 @@
 // it seems that refrences cannot be uninit. exchange them with pointers.
 
 
-// Circle DRAW should be based on elapsed time TODO
+
 class Demo : public olc::PixelGameEngine
 {
 public:
@@ -25,17 +25,17 @@ public:
 		a.Set_Segments(circle_segments);
 		
 
-		interface_red.		Prepare_Button(320, 180, 40, 20, olc::RED);
-		interface_green.	Prepare_Button(380, 180, 40, 20, olc::GREEN);
-		interface_blue.		Prepare_Button(440, 180, 40, 20, olc::BLUE);
-		interface_progress.	Prepare_Button(380, 140, 40, 20, olc::Pixel{ 225, 75, 0 });
+		interface_red.		Prepare_Button(400 - 43, 180, 40, 20, olc::RED);
+	//	interface_green.	Prepare_Button(380, 180, 40, 20, olc::GREEN);
+	//	interface_blue.		Prepare_Button(440, 180, 40, 20, olc::BLUE);
+		interface_progress.	Prepare_Button(400 + 3, 180, 40, 20, olc::Pixel{ 225, 75, 0 });
 		compare_sign.		Prepare_Button(800 * 0.70f -1, 220, 11, 11, olc::WHITE);
 		x_axis.Prepare_Button(a.x_algo - 13, a.y_algo - 25, 27, 11, olc::WHITE);
 		y_axis.Prepare_Button(a.x_algo - 39, a.y_algo - 6, 27, 11, olc::WHITE);
 
 		vInterfaces.push_back(&interface_red);
-		vInterfaces.push_back(&interface_green);
-		vInterfaces.push_back(&interface_blue);
+		//vInterfaces.push_back(&interface_green);
+		//vInterfaces.push_back(&interface_blue);
 		vInterfaces.push_back(&interface_progress);
 		vInterfaces.push_back(&compare_sign);
 		vInterfaces.push_back(&x_axis);
@@ -99,8 +99,8 @@ public:
 
 		int control_mod_display = a.Get_ControlValue_Mod();
 		interface_red.Monitor_Value				(control_mod_display);
-		interface_green.Monitor_Value			(std::string{ "---" });
-		interface_blue.Monitor_Value			(std::string{ "---" });
+		//interface_green.Monitor_Value			(std::string{ "---" });
+		//interface_blue.Monitor_Value			(std::string{ "---" });
 		interface_progress.Monitor_Value		(cv);
 		compare_sign.Monitor_Value				(a.compare_rad_cath);
 		x_axis.Monitor_Value					(current_x);
@@ -143,8 +143,8 @@ public:
 private:
 	Circle a { this };
 	InterfaceRect interface_red{ this };
-	InterfaceRect interface_green{ this };
-	InterfaceRect interface_blue{ this };
+	//InterfaceRect interface_green{ this };
+	//InterfaceRect interface_blue{ this };
 	InterfaceRect interface_progress{ this };
 	InterfaceRect compare_sign { this };
 	InterfaceRect x_axis{ this };

@@ -15,7 +15,7 @@ public:
 	
 	void Draw_CircleFilled();
 	void Draw_Circle();
-	void Draw_Circle_Visible();
+	void Draw_Circle_Visible(float elapsedT);
 	void Draw_FilledCircle_Visiblie();
 	void Draw_Circle_Algorithm_Visible(float fElapsedTime);
 	
@@ -24,7 +24,7 @@ public:
 	void Reset_Progress();
 	void Highlight_Segment(int x, int y);
 
-	int& Get_Progress();
+	float& Get_Progress();
 	float& Get_ControlValue();
 	float& Get_ControlValue_Mod();
 	
@@ -58,7 +58,7 @@ private:
 	std::vector <Point> vCircle_slices;
 	std::vector <CircleSegment> vCir_seg;
 	std::vector <Point> vDemoCircle_points;
-	int progress = 0;
+	float progress = 0;
 	float control_value = 0;
 	float control_value_mod = 0;
 	bool play_start_animation = true;

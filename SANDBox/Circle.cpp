@@ -163,10 +163,10 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 		}
 
 		if ((int)control_value > 2) {
-			demo_circle->Draw_Circle_Visible();
+			demo_circle->Draw_Circle_Visible(fElapsedTime);
 			control_value = 3;	// hold it until circle finishes drawing
 
-			if (demo_circle->progress == demo_circle->vCircle_points.size()) {// this means circle finished drawing
+			if (demo_circle->progress > demo_circle->vCircle_points.size()) {// this means circle finished drawing
 				this_thread::sleep_for(1500ms);
 				control_value = 4; // give it a push
 			}
@@ -382,7 +382,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 }
 
 
-void Circle::Draw_Circle_Visible()
+void Circle::Draw_Circle_Visible(float elapsedT)
 {
 	assert(ready);
 
@@ -392,8 +392,8 @@ void Circle::Draw_Circle_Visible()
 
 
 	// go removed for demo circle
-		if (progress < vCircle_points.size())
-			progress += 2;
+		if (progress < vCircle_points.size() + 5)
+			progress += elapsedT * 120;
 
 }
 
@@ -565,7 +565,7 @@ void Circle::Reset_Progress()
 	Set_Segments(segments);
 }
 
-int& Circle::Get_Progress() 
+float& Circle::Get_Progress() 
 {
 	return progress;
 }
