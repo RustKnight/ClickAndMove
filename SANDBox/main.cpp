@@ -133,7 +133,7 @@ public:
 		
 
 
- 		a.Draw_Circle_Algorithm_Visible(fElapsedTime);
+ 		a.Draw_FilledCircle_Visiblie ();
 		//a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;
@@ -151,7 +151,7 @@ private:
 	InterfaceRect y_axis{ this };
 	std::vector <InterfaceRect*> vInterfaces;
 
-	int circle_segments = 2;
+	int circle_segments = 25;
 
 	int mouse_x;
 	int mouse_y;

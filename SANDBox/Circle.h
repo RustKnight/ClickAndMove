@@ -42,7 +42,7 @@ private:
 	void Sketch_Circle_Filled();
 	void Sketch_Circle();
 	void Draw_Slice(int number, olc::Pixel);
-	float Rnd_Color(char c, float r, float g, float b, bool direction);
+	float Rnd_Color(float color, bool direction);
 	void NewCircle();
 
 private:

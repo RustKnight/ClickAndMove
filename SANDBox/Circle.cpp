@@ -454,21 +454,40 @@ void Circle::Set_Segments(int n_segments)
 	bool green_dir = rand() % 2;
 	bool blue_dir = rand() % 2;
 
+
 	for (int i = 0; i < segments; ++i) {
 		
 	
 		start	= end;
 		end		+= segment_size;
 
-		red		+= Rnd_Color	('r', red, green, blue, red_dir);
-		green	+= Rnd_Color	('g', red, green, blue, green_dir);
-		blue	+= Rnd_Color	('b', red, green, blue, blue_dir);
+		red		+= Rnd_Color	(red, red_dir);
+		green	+= Rnd_Color	(green, green_dir);
+		blue	+= Rnd_Color	(blue, blue_dir);
 
 		vCir_seg.push_back(CircleSegment{ start, end, olc::Pixel{ uint8_t( red ), uint8_t( green ), uint8_t( blue ) } });
 
 	}
 }
 
+
+
+
+float Circle::Rnd_Color(float col, bool direction)
+{
+
+
+	float mod;
+
+
+		if (direction)
+			mod = (255 - col) / segments;
+		else
+			mod = - (col / segments);
+
+		return mod;
+	
+}
 
 
 void Circle::Highlight_Segment(int x, int y)
@@ -500,47 +519,6 @@ void Circle::Highlight_Segment(int x, int y)
 }
 
 
-
-float Circle::Rnd_Color(char c, float rd, float gr, float bl, bool direction)
-{
-
-	
-	float mod;
-
-
-	switch (c) {
-
-	case 'r':	
-		if (direction)
-			mod = (255 - rd) / segments;
-		else
-			mod = -(rd / segments);
-
-		return mod;
-		break;
-	
-
-	case 'g':
-		if (direction)
-			mod = (255 - gr) / segments;
-		else
-			mod = -(gr / segments);
-
-		return mod;
-		break;
-
-
-	case 'b':
-		if (direction)
-			mod = (255 - bl) / segments;
-		else
-			mod = -(bl / segments);
-
-		return mod;
-		break;
-
-	}
-}
 
 void Circle::NewCircle()
 {
