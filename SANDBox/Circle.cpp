@@ -141,7 +141,9 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 	if (demo_circle == nullptr)
 		NewCircle();
 
-	int radius_highlight = ((demo_circle->vCircle_points.size() / 2) / 3) * 3 - 45; // aiming for 2 o'clock-ish point
+	// everything from the DEMO scales if you change the size of the circle, except this 1 lower line
+	int radius_highlight = ((demo_circle->vCircle_points.size() / 2) / 3) * 3 - 45; // aiming for 1 o'clock-ish point, dumb - I know
+	
 	pge->FillCircle(x_cen, y_cen, 1, olc::WHITE);
 
 	pge->DrawString(800 * 0.70f - 50, y_cen - radius, "Radius", olc::GREEN, 1);
@@ -173,9 +175,7 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 		}
 
 
-
 		if ((int)control_value > 3) {
-
 			play_start_animation = false;
 			control_value = 0; //compensate for using sleep function
 		}
@@ -184,15 +184,12 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 
 
 
-
-
 	else {
-
-
 		if (go) {
-
 			demo_start = true;
 
+			// we start by looping through the top left corner of the square
+			// x_cen and y_cen are stored in the circle class as data members, so that we remember each time we enter the function where we last were with our drawing
 			for (; x_algo <= x_cen + radius; ++x_algo) {
 				for (; y_algo <= y_cen + radius; ++y_algo) {
 
@@ -206,15 +203,18 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 
 					pge->SetPixelMode(olc::Pixel::ALPHA);
 
-					switch ((int)control_value) {
+						// Draw all discovered pixels of Circle so far contained in the vDemoCircle_points vector
+						// Draw green line radius, 
+						// and the measurment green bar for it (displayed on the right)
+						// Draw the yellow square 
 
-					case 0:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
+					if ((int)control_value > -1) {
+
+						for (Point p : vDemoCircle_points)
+							pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
 
 						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
-						
+
 						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
 						pge->DrawString(800 * 0.70f - 50, y_cen - radius, "Radius", olc::GREEN, 1);
 						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
@@ -222,146 +222,59 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 						// stop line blinking if going fast
 						if (control_value_mod > 20)
 							pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
-						break;
+					}
 
-					case 1:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
-						//draw horizontal cathetus
+					//draw horizontal cathetus
+					if ((int)control_value > 0)	
 						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
-						
-						// stop line blinking if going fast
-						if (control_value_mod > 20)
-							pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
-						break;
-
-					case 2:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
-						//draw vertical cathetus
+					// draw vertical cathetus
+					if ((int)control_value > 1)
 						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::DARK_CYAN);
-						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
 						
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
 
-						// stop line blinking if going fast
-						if (control_value_mod > 20)
-							pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
-						break;
-
-					case 3:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
-						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt (distance), olc::MAGENTA);
-
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::DARK_CYAN);
-						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
-						
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
-						break;
-
-					case 4:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
-						if (distance > radius * radius)
-							pge->FillCircle(x_algo, y_algo, 3, olc::RED);
-						else
-							pge->FillCircle(x_algo, y_algo, 3, olc::GREEN);
-
+					// draw the hypothenose itself
+					// and draw the measurment magenta bar for the hypothenose (displayed on the right) 
+					if ((int)control_value > 2) {
 						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
 						pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
+					}
 
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::DARK_CYAN);
-						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
-						
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
-						break;
-
-					case 5:
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
+					// store the found pixel that composes the circle in the vector
+					// and just make a little red/green dot if we found/not found a pixel of a circle 
+					if ((int)control_value > 3) {
 						if (distance < radius * radius) {
-							vDemoCircle_points.push_back(Point{ x_algo, y_algo });
-						}
-	
 
+							vDemoCircle_points.push_back(Point{ x_algo, y_algo });
+							pge->FillCircle(x_algo, y_algo, 3, olc::GREEN);
+						}
+
+						else
+							pge->FillCircle(x_algo, y_algo, 3, olc::RED);
+
+
+						// tries to put the correct comparison sign
 						if (radius < (int)sqrt(distance))
 							compare_rad_cath = '<';
-						else if (radius >(int)sqrt(distance))
+						else if (radius > (int)sqrt(distance))
 							compare_rad_cath = '>';
 						else if (radius == (int)sqrt(distance))
 							compare_rad_cath = '=';
-						
 
-						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
 
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::DARK_CYAN);
-						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
-						
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
 						control_value = 0;
 						y_algo++;// highjack for loop
-						break;
-
-					default:
-
-						if (!vDemoCircle_points.empty())
-							for (Point p : vDemoCircle_points)
-								pge->Draw(p.x, p.y, olc::Pixel{ 225, 75, 0 }); // orange)
-
-						if (distance < radius * radius)
-							vDemoCircle_points.push_back(Point{ x_algo, y_algo });
-
-						pge->DrawLine(x_algo, y_algo, x_cen, y_cen, olc::MAGENTA);
-						pge->FillRect(800 * 0.70f + 6, y_cen - radius, 3, sqrt(distance), olc::MAGENTA);
-
-						pge->DrawLine(x_algo, y_cen, x_algo, y_algo, olc::DARK_CYAN);
-						pge->DrawLine(x_cen, y_cen, x_algo, y_cen, olc::RED);
-						pge->DrawRect(x_cen - radius, y_cen - radius, radius * 2, radius * 2, olc::YELLOW);
-						pge->DrawLine(x_cen, y_cen, demo_circle->vCircle_points[radius_highlight].x, demo_circle->vCircle_points[radius_highlight].y, olc::GREEN);
-						pge->FillRect(800 * 0.70f, y_cen - radius, 3, radius, olc::GREEN);
-
-						control_value = 0;
 					}
-					
-					
-					
+			
 					break; // brake so that inner loop won't increase
 				}
 
 				// check to see if nested loop still has work to do, if so block outer loop
 				if (y_algo <= y_cen + radius) 
-					break;
-				
+					break;	
 
-				else {
-					y_algo = y_cen - radius;  // reset nested loop
-					continue;
-				}
+				else 
+					y_algo = y_cen - radius;  // reset nested loop		
 			}
 
 			// process ended
@@ -371,14 +284,12 @@ void Circle::Draw_Circle_Algorithm_Visible(float fElapsedTime)
 
 				demo_ended = true;
 			}
-	}
 
+	}
 }
 
 	if (go && !demo_ended)
 		control_value += fElapsedTime * (1.0f + control_value_mod);
-
-
 }
 
 

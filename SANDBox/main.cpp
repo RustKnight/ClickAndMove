@@ -133,7 +133,7 @@ public:
 		
 
 
- 		a.Draw_FilledCircle_Visiblie ();
+ 		a.Draw_Circle_Algorithm_Visible (fElapsedTime);
 		//a.Highlight_Segment(mouse_x, mouse_y);
 
 		return true;
