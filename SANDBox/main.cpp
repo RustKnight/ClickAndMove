@@ -29,33 +29,51 @@ public:
 		Clear(olc::BLACK);
 
 		if (GetKey(olc::UP).bHeld) {
-			addingVector.y += -1;
-			addingVector.x += -1;
+			scale_vector_by_factor += 0.01f;
 		}
 		if (GetKey(olc::DOWN).bHeld) {
-			addingVector.y += 1;
-			addingVector.x += 1;
+			scale_vector_by_factor -= 0.01f;
 		}
 
-		Point addedVectors = originVector + addingVector;
-		Point addedVectors2 = originVector + Point{ addingVector.y, -addingVector.x };
-		Point addedVectors3 = originVector + Point{ -addingVector.y, addingVector.x };
 
-		
+		DrawCircle	(CircleCenter.x, CircleCenter.y, radius, olc::WHITE);
+		DrawRect	(CircleCenter.x - radius, CircleCenter.y - radius, radius*2, radius*2, olc::WHITE);
+		DrawLine	(CircleCenter.x, CircleCenter.y, GetMouseX(), GetMouseY(), olc::WHITE);
 
-		DrawLine(originVector.x, originVector.y, addedVectors.x, addedVectors.y, olc::RED);
-		DrawLine(originVector.x, originVector.y, addedVectors2.x, addedVectors2.y, olc::CYAN);
-		DrawLine(originVector.x, originVector.y, addedVectors3.x, addedVectors3.y, olc::MAGENTA);
+		int mouse_vector_x = GetMouseX() - CircleCenter.x;
+		int mouse_vector_y = GetMouseY() - CircleCenter.y;
+
+		//DrawLine (CircleCenter.x, CircleCenter.y, )
+
+		//Draw vector x and y componets
+		DrawLine(CircleCenter.x, CircleCenter.y, CircleCenter.x + mouse_vector_x * scale_vector_by_factor, CircleCenter.y, olc::RED);
+		DrawLine(CircleCenter.x + mouse_vector_x * scale_vector_by_factor, CircleCenter.y, CircleCenter.x + mouse_vector_x * scale_vector_by_factor, CircleCenter.y + mouse_vector_y * scale_vector_by_factor, olc::BLUE);
+	
+		//draw the point of interest
+		FillCircle(CircleCenter.x + mouse_vector_x * scale_vector_by_factor, CircleCenter.y + mouse_vector_y * scale_vector_by_factor, 3, olc::GREEN);
+
+		//vector from the difference between mouse vector and point of interest
+		Point interest{ int(GetMouseX() - (CircleCenter.x + mouse_vector_x * scale_vector_by_factor)), int((CircleCenter.y + mouse_vector_y * scale_vector_by_factor) - GetMouseY()) };
+
+		DrawLine(CircleCenter.x + mouse_vector_x * scale_vector_by_factor,  
+				CircleCenter.y + mouse_vector_y * scale_vector_by_factor, 
+				interest.y + CircleCenter.y + mouse_vector_y * scale_vector_by_factor,
+				interest.x + CircleCenter.x + mouse_vector_x * scale_vector_by_factor, olc::MAGENTA);
+		//DrawLine(CircleCenter.x + mouse_vector_x * scale_vector_by_factor, CircleCenter.y + mouse_vector_y * scale_vector_by_factor, -interest.y, interest.x, olc::WHITE);
+
 
 		return true;
 	}
 
 
 private:
-	Point originVector{ winWidth / 2, winHeight / 2 };
-	Point addingVector{ 80, 50 };//{ 80, - 50 };
-	Point RightAngleCCW{ 50, -80 };
-	Point RightAngleCW{ -50, 80 };
+	Point CircleCenter{ winWidth / 2, winHeight / 2 };
+	int radius = 60;
+	float scale_vector_by_factor = 0.0f;
+	//Point originVector{ winWidth / 2, winHeight / 2 };
+	//Point addingVector{ 80, 50 };//{ 80, - 50 };
+	//Point RightAngleCCW{ 50, -80 };
+	//Point RightAngleCW{ -50, 80 };
 };
 
 
